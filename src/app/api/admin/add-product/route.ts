@@ -5,6 +5,7 @@ import { Product } from "@/lib/models/product";
 const data = await req.json();
 console.log(data);
 const { name, description, price, category, image } = data;
+
    
  try {
     connectDb();
@@ -24,12 +25,3 @@ const { name, description, price, category, image } = data;
     }  
 }
 
-
-
-/* export  function POST(
-  req:any
-) {
-    console.log(req.body)
- return Response.json({ message: 'Hello from Next.js!' })
- 
-} */

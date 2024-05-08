@@ -53,10 +53,11 @@ const AddProductForm = () => {
 
   // handle form submit
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
+    console.log(process.env.NEXT_PUBLIC_API_URL);
     e.preventDefault();
 
     const response = await fetch(
-      "http://localhost:3000/api/admin/add-product",
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/add-product`,
       {
         method: "POST",
         headers: {
@@ -78,7 +79,7 @@ const AddProductForm = () => {
         Upload New Product
       </h2>
       <div className="container mx-auto my-[100px] max-w-screen-lg">
-        <form className="w-full" >
+        <form className="w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div className="grid grid-cols-1 gap-5">
               <input
