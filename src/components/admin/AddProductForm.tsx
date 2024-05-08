@@ -77,7 +77,7 @@ const AddProductForm = () => {
       <h2 className="text-center text-[35px] font-bold  text-teal-500">
         Upload New Product
       </h2>
-      <div className="container mx-auto my-[100px]">
+      <div className="container mx-auto my-[100px] max-w-screen-lg">
         <form className="w-full" >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div className="grid grid-cols-1 gap-5">
