@@ -5,10 +5,12 @@ const nextConfig = {
        remotePatterns: [{
           protocol: 'https',
           hostname: 'res.cloudinary.com',
-          
-         
-
-       }],
+   
+       },
+      {
+         protocol:"https",
+         hostname:"img.daisyui.com"
+      }],
     }
 };
 export default nextConfig;
