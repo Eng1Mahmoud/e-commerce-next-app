@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FaShoppingCart } from "react-icons/fa";
 const Navbar = () => {
   return (
-    <div className="navbar">
+    <div className="navbar bg-white">
       <div className="container">
         <div className="flex-1 md:flex-none">
           <Link href="/" className="overflow-hidden">
@@ -24,23 +24,23 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link href="/" className="font-bold text-[20px]">
-                خضروات
+              <Link   href={`/categories/خضروات`} className="font-bold text-[20px]">
+               خضروات 
               </Link>
             </li>
             <li>
-              <Link href="/" className="font-bold text-[20px]">
-                فواكه
+              <Link  href={`/categories/فواكه`}  className="font-bold text-[20px]">
+               فواكه 
               </Link>
             </li>
             <li>
-              <Link href="/" className="font-bold text-[20px]">
-                ورقيات
+              <Link href={`/categories/ورقيات`}  className="font-bold text-[20px]">
+              ورقيات  
               </Link>
             </li>
             <li>
-              <Link href="/" className="font-bold text-[20px]">
-                التمور
+              <Link href={`/categories/التمور`}  className="font-bold text-[20px]">
+           التمور     
               </Link>
             </li>
           </ul>

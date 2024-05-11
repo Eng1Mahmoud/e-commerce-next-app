@@ -4,7 +4,7 @@ import { Product } from "@/lib/models/product";
  export const POST = async (req:any) => {
 const data = await req.json();
 console.log(data);
-const { name, description, price, category, image } = data;
+const { name, description, price, category, image,amount,unit } = data;
 
    
  try {
@@ -15,6 +15,9 @@ const { name, description, price, category, image } = data;
             price,
             category,
             image,
+            amount,
+            unit
+
         });
         await product.save();
         return Response.json({ message: "Product added successfully" });

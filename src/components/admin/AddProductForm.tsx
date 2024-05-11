@@ -8,16 +8,22 @@ const AddProductForm = () => {
   const [formState, setFormState] = useState({
     name: "",
     description: "",
-    price: "",
+    price: 0,
     category: "",
+    amount: 0,
     image: "",
+    unit:""
   } as {
     name: string;
     description: string;
-    price: string;
+    price: number;
     category: string;
     image: string;
+    amount: number;
+    unit:string;
   });
+
+  const [loading, setLoading] = useState<boolean>(false);
   // button status
 
   const SummitButton = () => {
@@ -29,19 +35,20 @@ const AddProductForm = () => {
         onClick={(e) => handleSubmit(e)}
         disabled={pending}
       >
-        {pending ? "Waiting.... " : "Add Product"}
+        {pending ? "انتظر .... " : "اضافة المنتج"}
       </button>
     );
   };
 
   // handle image upload
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
+    setLoading(true);
     const file = e.target.files?.[0] as File;
     const formData = new FormData();
     formData.append("file", file);
     const { imageUrl } = await uploadImages({}, formData);
     setFormState({ ...formState, image: imageUrl });
+    setLoading(false);
   };
   // handle change state
   const handleChange = (
@@ -73,6 +80,11 @@ const AddProductForm = () => {
       alert(data.message);
     }
   };
+  // delete image
+  const deleteImage = () => {
+    setFormState({ ...formState, image: "" });
+  };
+
   return (
     <div className="py-11">
       <h2 className="text-center text-[35px] font-bold  text-teal-500">
@@ -84,52 +96,90 @@ const AddProductForm = () => {
             <div className="grid grid-cols-1 gap-5">
               <input
                 type="text"
-                placeholder="Enter Product Name"
+                placeholder="ادخل اسم المنتج"
                 className="input input-bordered w-full "
                 name="name"
                 onChange={(e) => handleChange(e)}
               />
               <input
                 type="text"
-                placeholder="Enter Product Description"
+                placeholder="ادخل وصف المنتج"
                 className="input input-bordered w-full "
                 name="description"
                 onChange={(e) => handleChange(e)}
               />
               <input
                 type="number"
-                placeholder="Enter Product Price"
+                placeholder="ادخل السعر"
                 className="input input-bordered w-full "
                 name="price"
                 onChange={(e) => handleChange(e)}
               />
-
+              <input
+                type="number"
+                placeholder="ادخل الكمية"
+                className="input input-bordered w-full "
+                name="amount"
+                onChange={(e) => handleChange(e)}
+              />
               <label className="form-control w-full ">
                 <select
                   className="select select-bordered"
                   name="category"
-                  defaultValue={"Star Wars"}
                   onChange={(e) => handleChange(e)}
                 >
                   <option disabled selected>
-                    categorys
+                    الاقسام
                   </option>
-                  <option>Star Wars</option>
-                  <option>Harry Potter</option>
-                  <option>Lord of the Rings</option>
-                  <option>Planet of the Apes</option>
-                  <option>Star Trek</option>
+                  <option>فواكه</option>
+                  <option>خضروات</option>
+                  <option>تمور</option>
+                  <option>ورقيات</option>
+                  <option>فواكه مجففة</option>
+                </select>
+              </label>
+              <label className="form-control w-full ">
+                <select
+                  className="select select-bordered"
+                  name="unit"
+                  onChange={(e) => handleChange(e)}
+                >
+                  <option disabled selected>
+                    الوحدة
+                  </option>
+                  <option>كيلو</option>
+                  <option>جرام</option>
+                  <option>قطعة</option>
+                  <option>علبة</option>
+                  <option>كرتونة</option>
+                  <option>حبة</option>
+                  <option>حزمة</option>
                 </select>
               </label>
             </div>
-            <div className="w-full h-[250px]  bg-slate-400 flex justify-center">
-              {formState.image ? (
-                <Image
-                  src={formState.image}
-                  alt="product image"
-                  width={200}
-                  height={200}
-                />
+
+            <div className="w-full h-[250px] border-zinc-700 border-[1px]  flex justify-center  ">
+              {loading ? (
+                <div className="flex items-center h-full">
+                  {" "}
+                  ...جاري التحميل{" "}
+                </div>
+              ) : formState.image ? (
+                <div className="w-full relative bg-gray-600">
+                  <Image
+                    src={formState.image}
+                   layout="fill"
+                    alt="product"
+                    className="w-full h-[250px]"
+                  />
+                  <button
+                    className="absolute top-0 right-0 btn w-[200px] h-[50px] z-50"
+                    onClick={deleteImage}
+                  
+                  >
+                    حذف الصورة
+                  </button>
+                </div>
               ) : (
                 <label
                   className="h-full w-full flex flex-col items-center justify-center space-y-5 cursor-pointer border-2 border-dashed border-gray-400 bg-white p-6 rounded-lg shadow-md"
@@ -161,7 +211,7 @@ const AddProductForm = () => {
                   </div>
                   <div className="flex items-center justify-center">
                     <span className="font-normal text-gray-500">
-                      Click to upload image
+                      اضغط للتحميل
                     </span>
                   </div>
                   <input
@@ -173,6 +223,7 @@ const AddProductForm = () => {
                 </label>
               )}
             </div>
+
             <div className="flex ">
               <SummitButton />
             </div>

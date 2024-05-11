@@ -2,4 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body, html , *{
+    text-align: right;
+}
 
+body{
+    background-color: #f9fafb;
+}

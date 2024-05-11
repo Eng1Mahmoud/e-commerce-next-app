@@ -30,9 +30,9 @@ export const Slider: React.FC = () => {
   };
 
   return (
-    <div className="our-clients ">
+    <div className="">
       <Swiper
-        modules={[Pagination]}
+        modules={[Pagination,Autoplay]}
         pagination={{
           clickable: true,
           renderBullet: (index, className) => {
