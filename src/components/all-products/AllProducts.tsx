@@ -63,10 +63,13 @@ const AllProducts = ({ categorie }: { categorie: string }) => {
             setEndProducts(true);
             return;
           }
-          res.json().then((data) => {
-            console.log(data);
-            setProducts(data);
-          });
+          else{
+            return res.json().then((data) => {
+              setProducts(data);
+            
+            });
+          }
+         
         })
 
         .catch((err) => {
