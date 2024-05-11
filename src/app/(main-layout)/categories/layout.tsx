@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Breadcrumbs } from "./_components/Breadcrumbs";
 
 export default function RootLayout({
