@@ -7,7 +7,7 @@ const layout = ({children}:{
   return (
     <html lang="en">
     
-      <body  suppressHydrationWarning>
+      <body  >
          <Header/>
         {children}
         </body>
