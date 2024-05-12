@@ -59,8 +59,9 @@ const AllProducts = ({ categorie }: { categorie: string }) => {
         `${process.env.NEXT_PUBLIC_API_URL}/products/${categorie}/${1}/${limit}`,{
           headers: {
             'Content-Type': 'application/json',
-            
-        }
+             
+        },
+        method: 'GET',
       }
       )
         .then((res) => {
