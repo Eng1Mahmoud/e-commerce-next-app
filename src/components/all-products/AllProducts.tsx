@@ -56,7 +56,12 @@ const AllProducts = ({ categorie }: { categorie: string }) => {
     setLoading(true);
     const getProducts = async () => {
       fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/products/${categorie}/${1}/${limit}`
+        `${process.env.NEXT_PUBLIC_API_URL}/products/${categorie}/${1}/${limit}`,{
+          headers: {
+            'Content-Type': 'application/json',
+            
+        }
+      }
       )
         .then((res) => {
           if (res.status === 404) {
