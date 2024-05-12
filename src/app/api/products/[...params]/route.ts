@@ -19,7 +19,7 @@ export const GET = async (req: any, { params }: { params: any }) => {
         // return status code 404 if product not found
         return Response.json({ message: "Product not found" }, { status: 404 });
       }else{
-        return Response.json(products);
+        return Response.json({ products});
       
       }
    

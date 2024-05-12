@@ -39,7 +39,7 @@ const AllProducts = ({ categorie }: { categorie: string }) => {
           return;
         }
         res.json().then((data) => {
-          setProducts((prev) => [...prev, ...data]);
+          setProducts((prev) => [...prev, ...data.products]);
         });
       })
 
@@ -70,9 +70,8 @@ const AllProducts = ({ categorie }: { categorie: string }) => {
             return;
           }
           else{
-            return res.json().then((data) => {
-              console.log(data);  
-              setProducts(data);
+            return res.json().then((data) => { 
+              setProducts(data.products);
             
             });
           }
