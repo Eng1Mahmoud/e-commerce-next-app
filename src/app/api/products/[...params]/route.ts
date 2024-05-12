@@ -1,4 +1,3 @@
-"use server";
 import { connectDb } from "@/lib/conectDb";
 import { Product } from "@/lib/models/product";
 

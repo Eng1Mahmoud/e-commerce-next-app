@@ -1,4 +1,3 @@
-"use server";
 import { connectDb } from "@/lib/conectDb";
 import { Product } from "@/lib/models/product";
  export const POST = async (req:any) => {
