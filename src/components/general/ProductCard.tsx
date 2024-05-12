@@ -21,6 +21,7 @@ const ProductCard = ({product}:{product:Product}) => {
     height={500}
     className="h-[300px] w-full"
     objectFit="contain"
+    loading="eager"
   />
   <h3 className="font-bold text-[20px] mt-2">{product.name}</h3>
   <p className="text-[#ffad33] font-bold text-[20px] mt-1">
