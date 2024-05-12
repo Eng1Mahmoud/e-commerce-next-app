@@ -27,7 +27,7 @@ const AllProducts = ({ categorie }: { categorie: string }) => {
     setPage((prev) => prev + 1);
     setLoadingMore(true);
     // fetch more products
-
+   console.log(process.env.NEXT_PUBLIC_API_URL);
     fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/products/${categorie}/${
         page + 1
@@ -71,6 +71,7 @@ const AllProducts = ({ categorie }: { categorie: string }) => {
           }
           else{
             return res.json().then((data) => {
+              console.log(data);  
               setProducts(data);
             
             });
