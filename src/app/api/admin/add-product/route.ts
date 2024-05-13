@@ -3,7 +3,7 @@ import { Product } from "@/lib/models/product";
  export const POST = async (req:any) => {
 const data = await req.json();
 console.log(data);
-const { name, description, price, category, image,amount,unit } = data;
+const { name, description, price, category, images,amount,unit } = data;
 
    
  try {
@@ -13,7 +13,7 @@ const { name, description, price, category, image,amount,unit } = data;
             description,
             price,
             category,
-            image,
+            images,
             amount,
             unit
 

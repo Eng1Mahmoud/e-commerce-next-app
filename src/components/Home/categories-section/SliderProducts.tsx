@@ -46,7 +46,7 @@ export const SliderProducts = ({ products,categorie }: props) => {
       {/** creat next and prev button position top center slide  */}
       <div className="flex  items-center z-50 d  justify-end gap-8 mb-5">
         <Link
-        href={`categories/${categorie}`}
+        href={`products/${categorie}`}
           
           className="font-bold text-[20px] text-[#ffad33]"
         >

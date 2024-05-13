@@ -24,22 +24,22 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link   href={`/categories/خضروات`} className="font-bold text-[20px]">
+              <Link   href={`/products/خضروات`} className="font-bold text-[20px]">
                خضروات 
               </Link>
             </li>
             <li>
-              <Link  href={`/categories/فواكه`}  className="font-bold text-[20px]">
+              <Link  href={`/products/فواكه`}  className="font-bold text-[20px]">
                فواكه 
               </Link>
             </li>
             <li>
-              <Link href={`/categories/ورقيات`}  className="font-bold text-[20px]">
+              <Link href={`/products/ورقيات`}  className="font-bold text-[20px]">
               ورقيات  
               </Link>
             </li>
             <li>
-              <Link href={`/categories/التمور`}  className="font-bold text-[20px]">
+              <Link href={`/products/التمور`}  className="font-bold text-[20px]">
            التمور     
               </Link>
             </li>

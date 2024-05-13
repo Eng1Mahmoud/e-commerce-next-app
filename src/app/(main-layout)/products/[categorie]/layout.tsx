@@ -1,4 +1,4 @@
-import { Breadcrumbs } from "./_components/Breadcrumbs";
+import { Breadcrumbs } from "../_components/Breadcrumbs";
 
 export default function RootLayout({
   children,
@@ -7,7 +7,7 @@ export default function RootLayout({
 }>) {
   return (
     <div className="container">
-    <Breadcrumbs/>
+        <Breadcrumbs/>
       {children}
     </div>
   );
