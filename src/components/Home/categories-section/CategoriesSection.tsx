@@ -22,9 +22,11 @@ export const CategoriesSection = ({ categorie }: { categorie: string }) => {
   }, [categorie]);
 
   return (
-    <div className="container mt-10">
-      <h2 className="font-bold text-[25px]">{categorie}</h2>
-      <SliderProducts products={products} categorie={categorie} />
-    </div>
+    products.length > 0 && (
+      <div className="container mt-10">
+        <h2 className="font-bold text-[25px]">{categorie}</h2>
+        <SliderProducts products={products} categorie={categorie} />
+      </div>
+    )
   );
 };

@@ -14,7 +14,7 @@ export const GET = async (req: any, { params }: { params: any }) => {
       .skip(startIndex);
       if (products.length === 0 ) {
         // return status code 404 if product not found
-        return Response.json({ message: "Product not found" }, { status: 404 });
+        return Response.json({ message: "Product not found",products }, { status: 400 });
       }else{
         return Response.json({ products});
       
