@@ -10,7 +10,7 @@ interface Product {
   countInStock: number;
   rating: number;
   numReviews: number;
-  image: string;
+  images: string[];
   amount: number;
 }
 import ProductsSkeleton from "../general/skeletonLoading/ProductsSkeleton";
