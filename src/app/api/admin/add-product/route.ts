@@ -2,10 +2,7 @@ import { connectDb } from "@/lib/conectDb";
 import { Product } from "@/lib/models/product";
  export const POST = async (req:any) => {
 const data = await req.json();
-console.log(data);
 const { name, description, price, category, images,amount,unit } = data;
-
-   
  try {
     connectDb();
         const product = new Product({

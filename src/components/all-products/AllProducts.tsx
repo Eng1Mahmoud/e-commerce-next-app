@@ -19,7 +19,7 @@ const AllProducts = ({ categorie }: { categorie: string }) => {
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const limit = 10;
   const [endProducts, setEndProducts] = useState<boolean>(false);
 
   // handle pagination
@@ -27,7 +27,7 @@ const AllProducts = ({ categorie }: { categorie: string }) => {
     setPage((prev) => prev + 1);
     setLoadingMore(true);
     // fetch more products
-   console.log(process.env.NEXT_PUBLIC_API_URL);
+
     fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/products/${categorie}/${
         page + 1

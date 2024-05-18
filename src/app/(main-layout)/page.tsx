@@ -14,6 +14,7 @@ export default async function Home() {
      <CategoriesSection categorie="خضروات"/>
       <CategoriesSection categorie="فواكه"/>
       <CategoriesSection categorie="ورقيات"/>
+      <CategoriesSection categorie="تمور"/>
     
     </div>
   );

@@ -19,7 +19,7 @@ interface Product {
   countInStock: number;
   rating: number;
   numReviews: number;
-  image: string;
+  images: string[];
   amount: number;
 }
 interface props {

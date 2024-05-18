@@ -10,14 +10,14 @@ interface Product {
   countInStock: number;
   rating: number;
   numReviews: number;
-  image: string;
+  images: string[];
   amount: number;
 }
 const ProductCard = ({ product }: { product: Product }) => {
   return (
     <div className="bg-white shadow-lg rounded-lg p-4">
       <Image
-        src={product.image}
+        src={product.images[0]}
         alt={product.name}
         width={500}
         height={500}
