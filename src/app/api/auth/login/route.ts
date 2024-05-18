@@ -10,12 +10,10 @@ export const POST = async (req: any) => {
 
   try {
     connectDb();
-    const user = await User.findOne({ email: email }) as any;
-    console.log(user);
-    if (!user) {
-        console.log("User not found")
+    const user = (await User.findOne({ email: email })) as any;
 
-      return Response.json({ message: "User not  found" }, );
+    if (!user) {
+      return Response.json({ message: "User not  found" });
     }
     const validPassword = await bcrept.compare(password, user.password);
 
@@ -23,8 +21,13 @@ export const POST = async (req: any) => {
       return Response.json({ message: "Invalid password" }, { status: 400 });
     }
     const token = createToken(user._id);
-    return Response.json({ token }, { status: 200 });
+    // remove password from user object before sending to client
+    const returnUser = user.toObject();
+    delete returnUser.password;
+
+    return Response.json({ token, user: returnUser }, { status: 200 });
   } catch (error) {
+    console.log(error);
     return Response.json({ message: "Error logging in" }, { status: 500 });
   }
 };

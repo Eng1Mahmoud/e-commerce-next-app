@@ -22,7 +22,6 @@ const ProductCard = ({ product }: { product: Product }) => {
         width={500}
         height={500}
         className="h-[300px] w-full"
-        objectFit="contain"
         loading="eager"
       />
       <Link
