@@ -28,6 +28,6 @@ export const POST = async (req: any) => {
     return Response.json({ token, user: returnUser }, { status: 200 });
   } catch (error) {
     console.log(error);
-    return Response.json({ message: "Error logging in" }, { status: 500 });
+    return Response.json({ message: "Error logging in",error:error }, { status: 500 });
   }
 };
