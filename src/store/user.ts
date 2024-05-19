@@ -1,4 +1,3 @@
-import { CONFIG_FILES } from "next/dist/shared/lib/constants";
 import { create } from "zustand";
 import {  persist } from 'zustand/middleware'
 interface UserState {

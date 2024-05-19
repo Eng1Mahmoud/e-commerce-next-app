@@ -2,15 +2,19 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import authHero from "../../../../public/auth-hero.jpg";
-interface LoginData {
-  email: string;
-  password: string;
-}
 import { userStore } from "@/store/user";
 import { parseJwt } from "@/lib/decodeToken";
 import Image from "next/image";
 import Link from "next/link";
+import { alertStore } from "@/store/alert";
+interface LoginData {
+  email: string;
+  password: string;
+}
+
+
 const LoginPage = () => {
+  const { setAlert } = alertStore();
   const router = useRouter();
   const [loginData, setLoginData] = useState<LoginData>({
     email: "",
@@ -45,11 +49,11 @@ const LoginPage = () => {
           _id: decodetoken.userId,
           userInfo: data.user,
         });
-
         router.push("/");
       }
 
       if (res.status === 400) {
+        setAlert({ message: data.message, type: "error" });
         console.log(data.message);
       }
     });

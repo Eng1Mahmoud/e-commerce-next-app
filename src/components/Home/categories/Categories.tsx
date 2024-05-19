@@ -6,10 +6,7 @@ import cat2 from "../../../../public/fruits.webp";
 import cat3 from "../../../../public/tomore.webp";
 import cat4 from "../../../../public/fruits-s.webp";
 import cat5 from "../../../../public/warkeat.webp";
-import { userStore } from "@/store/user";
 export const Categories = () => {
-  const user = userStore((state) => state.user);
-  console.log(user);
   return (
     <div className="container mt-[50px]">
       <h2 className="font-bold text-[25px] ">تسوق حسب القسم</h2>

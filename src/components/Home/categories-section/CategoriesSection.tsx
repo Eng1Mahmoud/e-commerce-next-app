@@ -16,9 +16,7 @@ export const CategoriesSection = ({ categorie }: { categorie: string }) => {
       .then((data) => {
         setProducts(data.products);
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+   
   }, [categorie]);
 
   return (

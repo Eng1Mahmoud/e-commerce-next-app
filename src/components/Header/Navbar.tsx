@@ -8,7 +8,7 @@ import { userStore } from "@/store/user";
 import avatar from "../../../public/avatar.svg";
 const Navbar = () => {
   const user = userStore((state) => state.user);
-  console.log(user);
+
   return (
     <div className="navbar bg-white">
       <div className="container">

@@ -3,6 +3,7 @@ import ".././globals.css";
 import Navbar from "@/components/Header/Navbar";
 import { use, useEffect } from "react";
 import { userStore } from "@/store/user";
+import { Alert } from "@/components/general/Alert";
 
 export default function RootLayout({
   children,
@@ -27,6 +28,7 @@ export default function RootLayout({
   return (
     <html  lang="en" dir="rtl">
       <body suppressHydrationWarning={true}>
+        <Alert/>
         <Navbar />
         {children}
         <footer>footer</footer>
