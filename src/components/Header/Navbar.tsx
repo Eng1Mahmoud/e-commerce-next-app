@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <div className="navbar bg-white">
       <div className="container">
-        <div className="flex-1 md:flex-none">
+        <div className="flex-1 md:flex-none ml-5">
           <Link href="/" className="overflow-hidden">
             <Image
               src={logo}
@@ -24,27 +24,27 @@ const Navbar = () => {
         <div className=" flex-1 hidden md:block ">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <Link href="/" className="font-bold text-[20px]">
+              <Link href="/" className="font-bold text-[20px] font-main">
                 الرئيسية
               </Link>
             </li>
             <li>
-              <Link href={`/products/خضروات`} className="font-bold text-[20px]">
+              <Link href={`/products/خضروات`} className="font-bold text-[20px] font-main">
                 خضروات
               </Link>
             </li>
             <li>
-              <Link href={`/products/فواكه`} className="font-bold text-[20px]">
+              <Link href={`/products/فواكه`} className="font-bold text-[20px] font-main">
                 فواكه
               </Link>
             </li>
             <li>
-              <Link href={`/products/ورقيات`} className="font-bold text-[20px]">
+              <Link href={`/products/ورقيات`} className="font-bold text-[20px] font-main">
                 ورقيات
               </Link>
             </li>
             <li>
-              <Link href={`/products/التمور`} className="font-bold text-[20px]">
+              <Link href={`/products/التمور`} className="font-bold text-[20px] font-main">
                 التمور
               </Link>
             </li>
@@ -68,10 +68,10 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link href="/login" className="font-bold text-[20px]">
-                تسجيل الدخول
+              <Link href="/login" className="font-bold text-[15px] md:text-[20px] text-primary font-main">
+                تسجيل 
               </Link>
-              <Link href="/register" className="font-bold text-[20px]">
+              <Link href="/register" className="font-bold text-[15px] md:text-[20px] text-primary font-main">
                 انشاء حساب
               </Link>
             </>

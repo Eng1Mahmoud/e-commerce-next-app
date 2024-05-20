@@ -9,3 +9,12 @@ body, html , *{
 body{
     background-color: #f9fafb;
 }
+
+/*fonts*/
+
+@font-face {
+    font-family: 'main-font';
+    src: url('../.././public/fonts/XB Zar Bold.ttf') ;
+    font-weight: normal;
+    font-style: normal;
+}

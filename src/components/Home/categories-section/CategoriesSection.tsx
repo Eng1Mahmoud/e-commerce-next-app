@@ -22,7 +22,7 @@ export const CategoriesSection = ({ categorie }: { categorie: string }) => {
   return (
     products.length > 0 && (
       <div className="container mt-10">
-        <h2 className="font-bold text-[25px]">{categorie}</h2>
+        <h2 className="font-extrabold text-primary text-[40px]">{categorie}</h2>
         <SliderProducts products={products} categorie={categorie} />
       </div>
     )

@@ -14,12 +14,12 @@ const ProductCard = ({ product }: { product: IProduct }) => {
         className="h-[300px] w-full"
         loading="eager"
       />
-      <Link
-        href={`/products/${product.category}/${product._id}/${product.name}`}
-        className="font-bold text-[20px] mt-2 hover:text-[#ffad33]"
-      >
-        {product.name}
-      </Link>
+   <Link
+  href={`/products/${product.category}/${product._id}/${product.name}`}
+  className="font-bold text-[20px] pt-[15px] block hover:text-primary font-main overflow-hidden whitespace-nowrap overflow-ellipsis"
+>
+  {product.name}
+</Link>
       <p className="text-[#ffad33] font-bold text-[20px] mt-1">
         {product.price} جنيه
       </p>

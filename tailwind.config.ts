@@ -8,7 +8,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
-     container: {
+      container: {
         center: true,
         padding: {
           DEFAULT: '1rem',
@@ -16,12 +16,19 @@ const config: Config = {
           lg: '4rem',
           xl: '5rem',
         },
-     }
-
+      },
+      colors: {
+        primary: '#e18f33',
+        secondary: '#f9fafb',
+      },
+      fontFamily: {
+        main: ['main-font', 'sans-serif'],
+      },
     },
   },
   plugins: [
     require('daisyui'),
   ],
 };
+
 export default config;

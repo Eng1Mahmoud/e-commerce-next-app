@@ -9,7 +9,7 @@ import cat5 from "../../../../public/warkeat.webp";
 export const Categories = () => {
   return (
     <div className="container mt-[50px]">
-      <h2 className="font-bold text-[25px] ">تسوق حسب القسم</h2>
+      <h2 className=" text-[30px] md:text-[40px] font-main font-extrabold text-primary">تسوق حسب القسم</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
         <div className="relative h-[300px] ">
           <Image
