@@ -1,21 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import ProductCard from "../general/ProductCard";
-interface Product {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  countInStock: number;
-  rating: number;
-  numReviews: number;
-  images: string[];
-  amount: number;
-}
+
 import ProductsSkeleton from "../general/skeletonLoading/ProductsSkeleton";
+import { IProduct } from "@/types/product";
 const AllProducts = ({ categorie }: { categorie: string }) => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
   const [page, setPage] = useState(1);

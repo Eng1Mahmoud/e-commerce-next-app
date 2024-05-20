@@ -3,15 +3,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import authHero from "../../../../public/auth-hero.jpg";
-
-interface UserData {
-  username: string;
-  email: string;
-  password: string;
-}
+import { IRegister } from '@/types/user';
 
 const RegisterPage = () => {
-  const [userData, setUserData] = useState<UserData>({
+  const [userData, setUserData] = useState<IRegister>({
     username: '',
     email: '',
     password: '',

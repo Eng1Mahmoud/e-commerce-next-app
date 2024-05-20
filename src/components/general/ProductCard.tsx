@@ -1,19 +1,9 @@
+import { IProduct } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-interface Product {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  countInStock: number;
-  rating: number;
-  numReviews: number;
-  images: string[];
-  amount: number;
-}
-const ProductCard = ({ product }: { product: Product }) => {
+
+const ProductCard = ({ product }: { product: IProduct }) => {
   return (
     <div className="bg-white shadow-lg rounded-lg p-4">
       <Image

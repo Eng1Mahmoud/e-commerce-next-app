@@ -7,16 +7,12 @@ import { parseJwt } from "@/lib/decodeToken";
 import Image from "next/image";
 import Link from "next/link";
 import { alertStore } from "@/store/alert";
-interface LoginData {
-  email: string;
-  password: string;
-}
-
+import { ILogin } from "@/types/user";
 
 const LoginPage = () => {
   const { setAlert } = alertStore();
   const router = useRouter();
-  const [loginData, setLoginData] = useState<LoginData>({
+  const [loginData, setLoginData] = useState<ILogin>({
     email: "",
     password: "",
   });

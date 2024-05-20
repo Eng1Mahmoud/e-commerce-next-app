@@ -1,19 +1,5 @@
-import mongoose, { Model, Document } from "mongoose";
-
-interface IProduct extends Document {
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  countInStock?: number;
-  rating?: number;
-  numReviews?: number;
-
-  images: string[];
-  amount: number;
-  unit: string;
-}
-
+import mongoose, { Model } from "mongoose";
+import {IProduct} from "@/types/product";
 const productSchema = new mongoose.Schema<IProduct>({
   name: { type: String, required: true },
   description: { type: String, required: false },

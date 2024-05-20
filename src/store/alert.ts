@@ -1,14 +1,6 @@
 import {create} from 'zustand';
-
-interface AlertState {
-  alert: {
-    message: string;
-    type: 'success' | 'error' | 'info' | 'warning' | '';
-  };
-  setAlert: (alert: AlertState['alert']) => void;
-}
-
-export const alertStore = create<AlertState>((set) => ({
+import { IAlertState } from '@/types/store';
+export const alertStore = create<IAlertState>((set) => ({
   alert: {
     message: '',
     type: 'info',

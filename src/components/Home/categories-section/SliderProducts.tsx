@@ -10,23 +10,13 @@ import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import Link from "next/link";
 import ProductCard from "@/components/general/ProductCard";
-interface Product {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  countInStock: number;
-  rating: number;
-  numReviews: number;
-  images: string[];
-  amount: number;
-}
+import { IProduct } from "@/types/product";
+
 interface props {
-  products: Product[];
-  categorie:string;
+  products: IProduct[];
+  categorie: string;
 }
-export const SliderProducts = ({ products,categorie }: props) => {
+export const SliderProducts = ({ products, categorie }: props) => {
   const swiperRef = React.useRef<SwiperType | null>(null);
 
   const handleNext = () => {
@@ -46,8 +36,7 @@ export const SliderProducts = ({ products,categorie }: props) => {
       {/** creat next and prev button position top center slide  */}
       <div className="flex  items-center z-50 d  justify-end gap-8 mb-5">
         <Link
-        href={`products/${categorie}`}
-          
+          href={`products/${categorie}`}
           className="font-bold text-[20px] text-[#ffad33]"
         >
           عرض الكل
@@ -95,18 +84,17 @@ export const SliderProducts = ({ products,categorie }: props) => {
         }}
         className="  w-full"
       >
-        {
-         products.length > 0 ?(
-        products.map((product: Product) => (
-          <SwiperSlide key={product._id}>
-             <ProductCard product={product} />
-          </SwiperSlide>
-        ))):(
+        {products.length > 0 ? (
+          products.map((product: IProduct) => (
+            <SwiperSlide key={product._id}>
+              <ProductCard product={product} />
+            </SwiperSlide>
+          ))
+        ) : (
           <div className="flex justify-center items-center w-full h-96">
             <h1 className="text-3xl">لا يوجد منتجات</h1>
           </div>
-        )
-      }
+        )}
       </Swiper>
     </div>
   );

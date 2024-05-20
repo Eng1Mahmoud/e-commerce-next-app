@@ -1,26 +1,20 @@
 import mongoose, { Model, Document } from "mongoose";
+import { IUser } from "@/types/user";
 
-interface User {
-    _id?: string;
-    username: string;
-    email: string;
-    password: string;
-}
-
-const userSchema = new mongoose.Schema<User>({
+const userSchema = new mongoose.Schema<IUser>({
     _id: { type: String, required: false },
     username: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
 });
 
-let User: Model<User>;
+let User: Model<IUser>;
 
 try {
-    User = mongoose.model<User>("Users");
+    User = mongoose.model<IUser>("Users");
 }
 catch (error) {
-    User = mongoose.model<User>("Users", userSchema);
+    User = mongoose.model<IUser>("Users", userSchema);
 }
 
 

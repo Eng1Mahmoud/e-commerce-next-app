@@ -1,22 +1,14 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { uploadImages } from "@/actions/uploadImages";
+import { IProduct } from "@/types/product";
 
-interface FormState {
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  images: string[];
-  amount: number;
-  unit: string;
-}
 const UploadImages = ({
   formState,
   setFormState,
 }: {
-  formState: FormState;
-  setFormState: React.Dispatch<React.SetStateAction<FormState>>;
+  formState: IProduct;
+  setFormState: React.Dispatch<React.SetStateAction<IProduct>>;
 }) => {
   const [loading, setLoading] = useState<boolean[]>([false]);
   const handleImageUpload = async (
