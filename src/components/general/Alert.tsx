@@ -3,7 +3,7 @@ import { alertStore } from "@/store/alert";
 import React, { useEffect } from "react";
 
 export const Alert = () => {
-  const { alert,setAlert } = alertStore();
+  const { alert, setAlert } = alertStore();
   useEffect(() => {
     if (alert.message) {
       setTimeout(() => {
@@ -11,10 +11,20 @@ export const Alert = () => {
       }, 4000);
     }
   }, [alert, setAlert]);
+
   return (
-    alert.message && (
-      <div className="fixed  top-0 right-0 p-2 m-5 text-white rounded-lg">
-        <div role="alert" className={`alert alert-${alert.type}`}>
+    alert.type && (
+      <div className="fixed z-50  top-5 right-1 p-2 m-5 text-white rounded-lg w-[300px]">
+        <div
+          role="alert"
+          className={` alert ${
+            alert.type === "success"
+              ? "bg-green-500"
+              : alert.type === "error"
+              ? "bg-red-500"
+              : "bg-gray-500"
+          } p-4 rounded-lg`}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="stroke-current shrink-0 h-6 w-6 text-white"

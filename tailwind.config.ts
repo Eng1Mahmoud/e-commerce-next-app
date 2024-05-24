@@ -24,6 +24,7 @@ const config: Config = {
       fontFamily: {
         main: ['main-font', 'sans-serif'],
       },
+     
     },
   },
   plugins: [

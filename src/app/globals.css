@@ -2,19 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
-body, html , *{
-    text-align: right;
+body,
+html,
+* {
+  text-align: right;
 }
 
-body{
-    background-color: #f9fafb;
+body {
+  background-color: #f9fafb;
 }
 
+.btn-primary {
+  background-color: peru;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+.btn-primary:hover {
+  background-color: rgb(136, 75, 14);
+  color: white;
+  border: 1px solid peru;
+}
 /*fonts*/
 
 @font-face {
-    font-family: 'main-font';
-    src: url('../.././public/fonts/XB Zar Bold.ttf') ;
-    font-weight: normal;
-    font-style: normal;
+  font-family: "main-font";
+  src: url("../.././public/fonts/XB Zar Bold.ttf");
+  font-weight: normal;
+  font-style: normal;
 }

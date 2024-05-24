@@ -1,4 +1,4 @@
-import { Breadcrumbs } from "../_components/Breadcrumbs";
+import { Breadcrumbs } from "../../../../components/general/Breadcrumbs";
 
 export default function RootLayout({
   children,
