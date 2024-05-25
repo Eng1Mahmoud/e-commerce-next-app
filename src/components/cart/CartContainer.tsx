@@ -64,7 +64,7 @@ export const CartContainer = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data.paymentLink);
-       /*  window.location.href = data.paymentLink; */
+        window.location.href = data.paymentLink;
       });
   };
   return (
