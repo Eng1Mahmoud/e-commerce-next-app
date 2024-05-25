@@ -21,8 +21,8 @@ export const POST = async (req:any, ) => {
                 },
             ],
             mode: 'payment',
-            success_url: 'https://example.com/success',
-            cancel_url: 'https://example.com/cancel',
+            success_url: 'https://e-commerce-next-app-nine.vercel.app/success-payment',
+            cancel_url: 'https://e-commerce-next-app-nine.vercel.app/failed-payment',
         });
 
        
