@@ -50,6 +50,23 @@ export const CartContainer = () => {
         setUpdateCart(!updateCart);
       });
   };
+
+  // handle payment
+  const handlePayment = async () => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/stripe/paymentLink`, {
+      cache: "no-cache",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: user.token,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.paymentLink);
+       /*  window.location.href = data.paymentLink; */
+      });
+  };
   return (
     <section>
       {/*creat div contain two div first take 8 cols and secound take 4 in md and greter screen and sm every div take full width  i use tailwind css*/}
@@ -154,7 +171,7 @@ export const CartContainer = () => {
                 ج.م
               </p>
             </div>
-            <button className="btn btn-primary w-full mt-5">الدفع</button>
+            <button className="btn btn-primary w-full mt-5" onClick={handlePayment}>الدفع</button>
           </div>
         </div>
       </div>
