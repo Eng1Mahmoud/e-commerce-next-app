@@ -5,13 +5,17 @@ import { useState, useEffect } from "react";
 import { IProduct } from "@/types/product";
 import { useCartStore } from "@/store/cartQount";
 import { alertStore } from "@/store/alert";
+import { useRouter } from "next/navigation";
 export const CartContainer = () => {
+  const router = useRouter();
   const { fetchCartCount } = useCartStore((state) => state);
   const { setAlert } = alertStore(); // get alert from store
   const user = userStore((state) => state.user);
   const [cartItems, setCartItems] = useState([]);
   const [updateCart, setUpdateCart] = useState(false);
-
+  const [paymentMethod, setPaymentMethod] = useState("cash"); // default payment method
+  const [loading, setLoading] = useState(false);
+  console.log(paymentMethod);
   interface IItem {
     _id: string;
     quantity: number;
@@ -53,19 +57,37 @@ export const CartContainer = () => {
 
   // handle payment
   const handlePayment = async () => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/stripe/paymentLink`, {
-      cache: "no-cache",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: user.token,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.paymentLink);
-        window.location.href = data.paymentLink;
-      });
+    if (paymentMethod === "cash") {
+      setLoading(true);
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/order/createOrder`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: user.token,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setAlert({ message: data.message, type: "success" });
+          setUpdateCart(!updateCart);
+          fetchCartCount(); // update cart count
+          router.push("/");
+        }).finally(() => setLoading(false));
+    
+    } else if (paymentMethod === "online") {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/stripe/paymentLink`, {
+        cache: "no-cache",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: user?.token,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          window.location.href = data.paymentLink;
+        });
+    }
   };
   return (
     <section>
@@ -171,7 +193,24 @@ export const CartContainer = () => {
                 ج.م
               </p>
             </div>
-            <button className="btn btn-primary w-full mt-5" onClick={handlePayment}>الدفع</button>
+            <div className="mt-5">
+              <label htmlFor="paymentMethod">طريقة الدفع</label>
+              <select
+                name="paymentMethod"
+                id="paymentMethod"
+                className="select select-bordered w-full max-w-xs mt-4"
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              >
+                <option value="cash">كاش</option>
+                <option value="online">اونلاين</option>
+              </select>
+            </div>
+            <button
+              className="btn btn-primary w-full mt-5"
+              onClick={handlePayment}
+            >
+              {loading ? "جاري المعالجة..." : "الدفع"}
+            </button>
           </div>
         </div>
       </div>

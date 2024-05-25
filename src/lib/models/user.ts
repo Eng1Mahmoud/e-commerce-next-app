@@ -1,4 +1,4 @@
-import mongoose, { Model, Document } from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { IUser } from "@/types/user";
 
 const userSchema = new mongoose.Schema<IUser>({
@@ -8,14 +8,6 @@ const userSchema = new mongoose.Schema<IUser>({
     password: { type: String, required: true },
 });
 
-let User: Model<IUser>;
-
-try {
-    User = mongoose.model<IUser>("Users");
-}
-catch (error) {
-    User = mongoose.model<IUser>("Users", userSchema);
-}
-
+const User: Model<IUser> = mongoose.models.Users || mongoose.model<IUser>("Users", userSchema);
 
 export { User };

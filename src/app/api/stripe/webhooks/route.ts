@@ -1,30 +1,31 @@
-import Stripe from "stripe";
 
-// create endpoint for webhook to listen to events
-export const POST = async (req: any) => {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-    apiVersion: "2024-04-10",
+// creat function to clear cart and creat order after payment success
+import { Cart } from "@/lib/models/Cart";
+import { Order } from "@/lib/models/Order";
+
+const createOrder = async ({ userId }: { userId: string }) => {
+  // get cart and populate products and userId fields
+  const cart = await Cart.findOne({ userId: userId })
+  // create order
+  await Order.create({
+    userId: cart.userId,
+    products: cart.products,
+    status: "pending",
   });
+};
+const clear = async ({ userId }: { userId: string }) => {
+  await Cart.findOneAndDelete({ userId: userId });
+};
 
-  const sig = req.headers["stripe-signature"];
-  let event;
-
-  try {
-    event = stripe.webhooks.constructEvent(
-      req.body,
-      sig,
-      process.env.STRIPE_WEBHOOK_SECRET as string
-    );
-  } catch (err) {
-    console.error(err);
-    return Response.json({ error: "Webhook Error" }, { status: 400 });
-  }
-
+export const POST = async (req: any) => {
+  const event = await req.json();
   // Handle the event
   switch (event.type) {
     case "checkout.session.completed":
       const session = event.data.object;
-      console.log("session: ", session);
+      const userId = session.client_reference_id;
+      await createOrder({ userId }); // create order
+      await clear({ userId }); // clear cart
       break;
     default:
       console.log(`Unhandled event type ${event.type}`);

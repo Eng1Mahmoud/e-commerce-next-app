@@ -14,7 +14,6 @@ export const useCartStore = create<CartStore>()(
     (set) => ({
       cartCount: 0,
       fetchCartCount: async () => {
-        console.log("cart action");
         try {
           const res = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/cart/getcountItems`,
