@@ -17,7 +17,7 @@ export const POST = async (req: any) => {
     );
   } catch (err) {
     console.error(err);
-    return { error: "Webhook Error" };
+    return Response.json({ error: "Webhook Error" }, { status: 400 });
   }
 
   // Handle the event
@@ -30,5 +30,5 @@ export const POST = async (req: any) => {
       console.log(`Unhandled event type ${event.type}`);
   }
 
-  return { received: true };
+  return Response.json({ received: true });
 };
