@@ -28,20 +28,21 @@ export const userStore = create<IUserStore>()(
               userInfo: null,
             },
           };
-          // fetch user after login and store in storage
+         
         }),
       fetchUser: async () => {
         try {
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/user`,
+            `${process.env.NEXT_PUBLIC_API_URL}/user/get`,
             {
+              method: "GET",
               headers: {
                 Authorization: userStore.getState().user.token,
               },
             }
           ); // replace with your API endpoint
           const data = await response.json();
-          set((state) => ({ user: { ...state.user, userInfo: data } }));
+          set((state) => ({ user: { ...state.user, userInfo: data.user } }));
         } catch (error) {
           console.error("Failed to fetch user", error);
         }

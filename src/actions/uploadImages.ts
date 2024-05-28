@@ -9,8 +9,7 @@ cloudinary.config({
 
 export const uploadImages = async (state:any, data:FormData) => {
     // Get the file from the form data
-    const file = data.get('file') as File;
-
+   const file = data.get('file') as File;
    const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 

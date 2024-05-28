@@ -50,7 +50,6 @@ const AddProductForm = () => {
   // handle form submit
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-     console.log(formState);
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/admin/add-product`,
       {

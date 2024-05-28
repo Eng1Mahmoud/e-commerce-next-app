@@ -32,7 +32,6 @@ export const POST = async (req: any) => {
       return Response.json({ message: "Product added to cart" });
     }
   } catch (error) {
-    console.log(error);
     return Response.json(
       { message: "Error adding product to cart", error },
       { status: 500 }

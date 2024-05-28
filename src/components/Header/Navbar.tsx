@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import logo from "../../../public/al-baraka-logo.png";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,13 +7,23 @@ import { FaShoppingCart } from "react-icons/fa";
 import { userStore } from "@/store/user";
 import avatar from "../../../public/avatar.svg";
 import useCartStore from "@/store/cartQount";
+import { CgProfile } from "react-icons/cg";
+import { IoIosLogOut } from "react-icons/io";
+import { useRouter } from "next/navigation";
 const Navbar = () => {
-  const user = userStore((state) => state.user); // get user token
+  const router = useRouter();
+  const { user, logout } = userStore(); // get user token
   const { cartCount } = useCartStore((state) => state); // get user cart items count
+
+  // handle logout
+  const handleLogout = () => {
+    logout();
+    router.push("/");
+  };
   return (
     <div className="navbar bg-white">
-      <div className="container">
-        <div className="flex-1 lg:flex-none ml-5">
+      <div className="container mx-auto">
+        <div className="flex-1 lg:flex-none ">
           <Link href="/" className="overflow-hidden">
             <Image
               src={logo}
@@ -66,17 +76,44 @@ const Navbar = () => {
         <div className="flex gap-5  items-center ">
           {user.userInfo ? (
             <>
-              <div className="avatar">
-                <div className="w-[40px] h-[40px] rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                  <Image
-                    alt="avatar"
-                    src={user.userInfo.avatar ? user.userInfo.avatar : avatar}
-                    className="w-full h-full"
-                    width={100}
-                    height={100}
-                  />
+              {/** user avatar */}
+              <div className="dropdown dropdown-end">
+                <div tabIndex={0} className="">
+                  <div className="avatar cursor-pointer">
+                    <div className="w-[40px] h-[40px] rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                      <Image
+                        alt="avatar"
+                        src={
+                          user.userInfo.avatar ? user.userInfo.avatar : avatar
+                        }
+                        className="w-full h-full"
+                        width={100}
+                        height={100}
+                      />
+                    </div>
+                  </div>
                 </div>
+                <ul
+                  className="dropdown-content z-[60] menu p-2 shadow bg-base-100 rounded-box w-52  "
+                  tabIndex={0}
+                >
+                  <li>
+                    <Link href="/profile">
+                      <CgProfile className="h-5 w-5" />
+                      الملف الشخصي
+                    </Link>
+                  </li>
+                  <li>
+                    <button className="" onClick={handleLogout}>
+                      <IoIosLogOut className="h-5 w-5 text-red-600" />
+                      تسجيل الخروج
+                    </button>
+                  </li>
+                </ul>
               </div>
+              {/*user menu */}
+
+              {/** cart qount */}
               <div className="indicator">
                 <span className="indicator-item badge bg-primary text-white p-2">
                   {cartCount}

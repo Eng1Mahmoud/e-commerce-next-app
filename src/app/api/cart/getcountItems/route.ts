@@ -14,7 +14,6 @@ export const GET  = async (req:any) => {
         }
         return Response.json({ count: cart.products.length });
     } catch (error) {
-        console.log(error);
         return Response.json(
             { message: "Error getting cart items count", error },
             { status: 500 }

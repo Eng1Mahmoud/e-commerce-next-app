@@ -34,7 +34,7 @@ const AllProducts = ({ categorie }: { categorie: string }) => {
       })
 
       .catch((err) => {
-        console.error(err);
+  
       })
       .finally(() => {
         setLoadingMore(false);
@@ -68,9 +68,6 @@ const AllProducts = ({ categorie }: { categorie: string }) => {
          
         })
 
-        .catch((err) => {
-          console.error(err);
-        })
         .finally(() => {
           setLoading(false);
         });

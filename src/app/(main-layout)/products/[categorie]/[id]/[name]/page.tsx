@@ -23,11 +23,9 @@ const page = async ({
       }
     );
     product = await response.json();
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (_) {}
 
-  console.log(product);
+
 
   return <div>
     <ProductById product={product} />

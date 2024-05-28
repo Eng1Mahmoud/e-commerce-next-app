@@ -18,6 +18,8 @@ interface IUserStore {
       email: string;
       password: string;
       avatar: string;
+      phone: string;
+      address: string;
     } | null;
   };
   updateUser: (user: IUserStore["user"]) => void;

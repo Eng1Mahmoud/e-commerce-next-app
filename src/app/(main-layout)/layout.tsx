@@ -14,8 +14,6 @@ export default function RootLayout({
   useEffect(() => {
     // logout user if expired token get exp from userStore and compare it with current time
     if (user.exp && user.exp < Date.now() / 1000) {
-    
-      console.log(user.exp);
       logout();
     } else {
       // set timeout to logout user after token expired
@@ -31,7 +29,7 @@ export default function RootLayout({
         <Alert/>
         <Navbar />
         {children}
-        <footer>footer</footer>
+     
       </body>
     </html>
   );

@@ -21,7 +21,6 @@ export const GET = async (req: any) => {
         
         return new Response(JSON.stringify({ products: cart.products }), { status: 200 });
     } catch (error) {
-        console.error(error);
         return new Response(JSON.stringify({ message: "Error getting cart items", error }), { status: 500 });
     }
 };

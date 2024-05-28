@@ -3,8 +3,6 @@ import React from "react";
 const ProductDetails = ({ product }: { product: any }) => {
   const [totalPrice, setTotalPrice] = React.useState(1);
   const [quantity, setQuantity] = React.useState(1);
-  console.log("product", product);
-
   // increease quantity
   const increaseQuantity = () => {
     setQuantity(quantity + 1);

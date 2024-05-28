@@ -52,7 +52,6 @@ const LoginPage = () => {
 
         if (res.status === 400) {
           setAlert({ message: data.message, type: "error" });
-          console.log(data.message);
         }
       })
       .finally(() => {

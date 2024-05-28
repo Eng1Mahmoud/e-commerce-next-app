@@ -19,7 +19,6 @@ const { name, description, price, category, images,amount,unit } = data;
         return Response.json({ message: "Product added successfully" });
     }
     catch(err) {
-        console.error(err);
        return Response.json({ message: "Product not added" });
     }  
 }

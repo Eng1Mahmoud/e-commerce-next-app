@@ -55,7 +55,6 @@ export const POST = async (req: any) => {
 
     return Response.json({ paymentLink: session.url });
   } catch (error) {
-    console.error("Error creating checkout session:", error);
     return Response.json(
       { error: "Unable to create checkout session" },
       { status: 500 }

@@ -14,7 +14,7 @@ export const Alert = () => {
 
   return (
     alert.type && (
-      <div className="fixed z-50  top-5 right-1 p-2 m-5 text-white rounded-lg w-[300px]">
+      <div className="fixed z-[100]  top-5 right-1 p-2 m-5 text-white rounded-lg w-[300px]">
         <div
           role="alert"
           className={` alert ${

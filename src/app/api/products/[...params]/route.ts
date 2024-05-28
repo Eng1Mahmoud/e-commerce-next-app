@@ -21,7 +21,6 @@ export const GET = async (req: any, { params }: { params: any }) => {
       }
    
   } catch (err) {
-    console.error(err);
     return Response.json({ message: "Product not found" });
   }
 };

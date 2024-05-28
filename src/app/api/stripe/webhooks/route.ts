@@ -27,8 +27,8 @@ export const POST = async (req: any) => {
       await createOrder({ userId }); // create order
       await clear({ userId }); // clear cart
       break;
-    default:
-      console.log(`Unhandled event type ${event.type}`);
+    default:;
+   
   }
 
   return Response.json({ received: true });

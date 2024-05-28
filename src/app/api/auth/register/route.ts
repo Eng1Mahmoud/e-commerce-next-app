@@ -4,7 +4,6 @@ import { User } from "@/lib/models/user";
 
 export const POST = async (req: any, ) => {
   const data = await req.json();
-  
 
   const { username, email, password } = data;
  // check if user already exists
@@ -25,6 +24,6 @@ export const POST = async (req: any, ) => {
     return Response.json({data:data, message: "User registered successfully" },{status:200});
     }
 } catch (error) {
-    return Response.json({ message: "Error registering user"},{status:500} );
+    return Response.json({ message:error},{status:500} );
 }
 };

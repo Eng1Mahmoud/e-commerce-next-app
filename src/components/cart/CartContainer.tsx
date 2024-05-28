@@ -15,7 +15,6 @@ export const CartContainer = () => {
   const [updateCart, setUpdateCart] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("cash"); // default payment method
   const [loading, setLoading] = useState(false);
-  console.log(paymentMethod);
   interface IItem {
     _id: string;
     quantity: number;
