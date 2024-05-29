@@ -5,6 +5,7 @@ import React from "react";
 import { CgProfile } from "react-icons/cg";
 import { IoIosLogOut } from "react-icons/io";
 import { useRouter } from "next/navigation";
+import { deleteCookie } from "cookies-next";
 
 export const ListSettings = () => {
   const { logout } = userStore(); // get user token
@@ -13,11 +14,12 @@ export const ListSettings = () => {
   const handleLogout = () => {
     logout();
     router.push("/");
+    deleteCookie("token");
   };
   return (
     <div>
       <ul className="menu w-full px-0 rounded-none flex flex-col gap-[2px]">
-        <li >
+        <li>
           <Link href="/profile">
             <CgProfile className="" size={30} />
             الملف الشخصي
@@ -25,11 +27,7 @@ export const ListSettings = () => {
         </li>
         <li>
           <button onClick={handleLogout}>
-            <IoIosLogOut
-              size={30}
-              className=" text-red-600"
-             
-            />
+            <IoIosLogOut size={30} className=" text-red-600" />
             تسجيل الخروج
           </button>
         </li>

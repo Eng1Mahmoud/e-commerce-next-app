@@ -10,6 +10,7 @@ import useCartStore from "@/store/cartQount";
 import { CgProfile } from "react-icons/cg";
 import { IoIosLogOut } from "react-icons/io";
 import { useRouter } from "next/navigation";
+import { deleteCookie } from "cookies-next";
 const Navbar = () => {
   const router = useRouter();
   const { user, logout } = userStore(); // get user token
@@ -19,6 +20,8 @@ const Navbar = () => {
   const handleLogout = () => {
     logout();
     router.push("/");
+    deleteCookie("token");
+
   };
   return (
     <div className="navbar bg-white">
@@ -69,6 +72,14 @@ const Navbar = () => {
                 className="font-bold text-[20px] font-main"
               >
                 التمور
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={`/profile`}
+                className="font-bold text-[20px] font-main"
+              >
+                الملف الشخصي 
               </Link>
             </li>
           </ul>

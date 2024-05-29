@@ -1,22 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { SliderProducts } from "./SliderProducts";
-
+import axiosInstance from "@/lib/models/axiosInstance";
 export const CategoriesSection = ({ categorie }: { categorie: string }) => {
   const [products, setProducts] = useState([]);
-
   useEffect(() => {
-    fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/products/${categorie}/${1}/${10}`,
-      {
-        method: "GET",
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data.products);
+      axiosInstance.get(`/products/${categorie}/${1}/${10}`).then((res)=>{
+        setProducts(res.data.products)
       })
-   
   }, [categorie]);
 
   return (

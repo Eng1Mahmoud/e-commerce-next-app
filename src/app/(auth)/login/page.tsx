@@ -1,4 +1,5 @@
 "use client";
+import { setCookie } from "cookies-next";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import authHero from "../../../../public/auth-hero.jpg";
@@ -8,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { alertStore } from "@/store/alert";
 import { ILogin } from "@/types/user";
+import axiosInstance from "@/lib/models/axiosInstance";
 const LoginPage = () => {
   const { setAlert } = alertStore();
   const router = useRouter();
@@ -28,31 +30,23 @@ const LoginPage = () => {
     e.preventDefault();
     // Handle login logic here
     setLoading(true);
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-      cache: "no-cache",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(loginData),
-    })
-      .then(async (res) => {
-        const data = await res.json();
-        if (res.ok) {
-          const decodetoken = parseJwt(data.token);
-          updateUser({
-            token: data.token,
-            exp: decodetoken.exp,
-            _id: decodetoken.userId,
-            userInfo: data.user,
-          });
-
-          router.push("/");
-        }
-
-        if (res.status === 400) {
-          setAlert({ message: data.message, type: "error" });
-        }
+    axiosInstance
+      .post("/auth/login", loginData)
+      .then((res) => {
+        const decodetoken = parseJwt(res.data.token);
+        updateUser({
+          token: res.data.token,
+          exp: decodetoken.exp,
+          _id: decodetoken.userId,
+          userInfo: res.data.user,
+        });
+        setCookie("token", res.data.token, {
+          expires: new Date(decodetoken.exp * 1000),
+        });
+        router.push("/");
+      })
+      .catch((err) => {
+        setAlert({ message: err.message, type: "error" });
       })
       .finally(() => {
         setLoading(false);

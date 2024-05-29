@@ -5,6 +5,7 @@ import { FaCamera } from "react-icons/fa";
 import { uploadImages } from "@/actions/uploadImages";
 import { userStore } from "@/store/user";
 import { alertStore } from "@/store/alert";
+import axiosInstance from "@/lib/models/axiosInstance";
 export const UserAvatar = () => {
   const { user, fetchUser } = userStore((state) => state);
 
@@ -19,20 +20,11 @@ export const UserAvatar = () => {
       const formData = new FormData();
       formData.append("file", file);
       const { imageUrl } = await uploadImages({}, formData);
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/update`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: user?.token,
-        },
-        body: JSON.stringify({ avatar: imageUrl }),
-      })
-        .then(async (res) => {
-          return res.json();
-        })
-        .then((data) => {
-          setAlert({ message: data.message, type: "success" });
-          fetchUser();   // FETCH NEW USER DATA 
+      axiosInstance
+        .put("/user/update", { avatar: imageUrl })
+        .then((res) => {
+          setAlert({ message: res.data.message, type: "success" });
+          fetchUser(); // FETCH NEW USER DATA
         })
         .catch((error) => {
           setAlert({ message: error.message, type: "error" });
@@ -46,7 +38,7 @@ export const UserAvatar = () => {
         <Image
           width={300}
           height={300}
-          src={user?.userInfo?.avatar  || avatar}
+          src={user?.userInfo?.avatar || avatar}
           alt="avatar"
           className="w-full h-full object-cover"
         />

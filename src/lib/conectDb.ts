@@ -1,9 +1,5 @@
 import mongoose from "mongoose";
-
 const DB_CONNECTION = process.env.NEXT_PUBLIC_DB_CONECTION;
-
-console.log("DB_CONNECTION: ", DB_CONNECTION);
-
 export const connectDb = async () => {
     try {
         if (DB_CONNECTION) {

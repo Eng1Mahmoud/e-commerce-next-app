@@ -5,6 +5,7 @@ interface IUser {
     avatar?: string;
     phone?: string;
     address?: string;
+    role: string;
 }
 
 interface ILogin {

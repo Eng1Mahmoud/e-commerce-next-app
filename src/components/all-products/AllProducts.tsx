@@ -4,6 +4,7 @@ import ProductCard from "../general/ProductCard";
 
 import ProductsSkeleton from "../general/skeletonLoading/ProductsSkeleton";
 import { IProduct } from "@/types/product";
+import axiosInstance from "@/lib/models/axiosInstance";
 const AllProducts = ({ categorie }: { categorie: string }) => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState(false);
@@ -17,24 +18,14 @@ const AllProducts = ({ categorie }: { categorie: string }) => {
     setPage((prev) => prev + 1);
     setLoadingMore(true);
     // fetch more products
-
-    fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/products/${categorie}/${
-        page + 1
-      }/${limit}`
-    )
+    axiosInstance
+      .get(`/products/${categorie}/${page}/${limit}`)
       .then((res) => {
-        if (res.status === 404) {
+        if (res.data.products.length === 0) {
           setEndProducts(true);
           return;
         }
-        res.json().then((data) => {
-          setProducts((prev) => [...prev, ...data.products]);
-        });
-      })
-
-      .catch((err) => {
-  
+        setProducts((prev) => [...prev, ...res.data.products]);
       })
       .finally(() => {
         setLoadingMore(false);
@@ -45,29 +36,15 @@ const AllProducts = ({ categorie }: { categorie: string }) => {
   useEffect(() => {
     setLoading(true);
     const getProducts = async () => {
-      fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/products/${categorie}/${1}/${limit}`,{
-          headers: {
-            'Content-Type': 'application/json',
-             
-        },
-        method: 'GET',
-      }
-      )
+      axiosInstance
+        .get(`/products/${categorie}/${1}/${limit}`)
         .then((res) => {
-          if (res.status === 404) {
+          if (res.data.products.length === 0) {
             setEndProducts(true);
             return;
           }
-          else{
-            return res.json().then((data) => { 
-              setProducts(data.products);
-            
-            });
-          }
-         
+          setProducts(res.data.products);
         })
-
         .finally(() => {
           setLoading(false);
         });

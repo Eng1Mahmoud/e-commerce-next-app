@@ -9,7 +9,7 @@ export const POST = async (req: any) => {
   // check if token is valid and get user id
   const { userId }: any = verifyToken(token);
   const data = await req.json();
-  const { productId, action } = data;
+  const { productId, action,count } = data;
   try {
     connectDb();
     const cart = await Cart.findOne({ userId: userId });

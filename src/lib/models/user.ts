@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema<IUser>({
   avatar: { type: String, required: false },
   phone: { type: String, required: false },
   address: { type: String, required: false },
+  role: { type: String, required: true, default: "user" },
 });
 
 const User: Model<IUser> =

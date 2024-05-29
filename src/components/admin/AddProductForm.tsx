@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useFormStatus } from "react-dom";
 import UploadImages from "./UploadImages";
-
+import axiosInstance from "@/lib/models/axiosInstance";
 const AddProductForm = () => {
   const [formState, setFormState] = useState({
     name: "",
@@ -50,26 +50,11 @@ const AddProductForm = () => {
   // handle form submit
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/add-product`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formState),
-      }
-    );
-    const data = await response.json();
-    if (response.ok) {
-      alert(data.message);
-    } else {
-      alert(data.message);
-    }
-  };
-  // delete image
-  const deleteImage = () => {
-    /* setFormState({ ...formState, image: "" }); */
+    axiosInstance.post("/admin/add-product",formState).then((res)=>{
+      alert(res.data.message)
+    }).catch((error)=>{
+      alert(error.message)
+    })
   };
 
   return (

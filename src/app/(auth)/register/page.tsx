@@ -6,6 +6,7 @@ import authHero from "../../../../public/auth-hero.jpg";
 import { IRegister } from "@/types/user";
 import { alertStore } from "@/store/alert";
 import { useRouter } from "next/navigation";
+import axiosInstance from "@/lib/models/axiosInstance";
 const RegisterPage = () => {
   const router = useRouter();
   const { setAlert } = alertStore();
@@ -21,32 +22,15 @@ const RegisterPage = () => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
   };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
-      cache: "no-cache",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    })
-      .then(async (res) => {
-        const data = await res.json();
-        if (res.status === 200) {
-          setAlert({ message: data.message, type: "success" });
-          router.push("/login");
-        }
-        if (res.status === 400) {
-          setAlert({ message: data.message, type: "error" });
-        }
-      })
-      .catch((error) => {
+      axiosInstance.post("/auth/register", userData).then((res) => {
+        setAlert({ message: res.data.message, type: "success" });
+        router.push("/login");
+      }).catch((error) => {
         setAlert({ message: error.message, type: "error" });
-      })
-      .finally(() => {
+      }).finally(() => {
         setLoading(false);
       });
   };

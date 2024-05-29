@@ -1,4 +1,5 @@
 "use client";
+import axiosInstance from "@/lib/models/axiosInstance";
 import { alertStore } from "@/store/alert";
 import { userStore } from "@/store/user";
 import React, { useEffect, useState } from "react";
@@ -26,24 +27,12 @@ export const UserInfo = () => {
   };
   // handle update user info
   const handleUpdate = () => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/update`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: user?.token,
-      },
-      body: JSON.stringify({ ...userInfo }),
-    })
-      .then(async (res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setAlert({ message: data.message, type: "success" });
+      axiosInstance.put("/user/update",userInfo).then((res)=>{
+        setAlert({ message: res.data.message, type: "success" });
         fetchUser(); // FETCH NEW USER DATA
-      })
-      .catch((error) => {
+      }).catch((error)=>{
         setAlert({ message: error.message, type: "error" });
-      });
+      })
   };
   return (
     <div className="bg-white shadow-xl rounded-lg py-10">

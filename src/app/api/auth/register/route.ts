@@ -15,7 +15,6 @@ export const POST = async (req: any, ) => {
     }
     else{
     // create new user
-
     // hash password before saving to database
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);

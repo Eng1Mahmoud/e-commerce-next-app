@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { IUserStore } from "@/types/store";
+import axiosInstance from "@/lib/models/axiosInstance";
 export const userStore = create<IUserStore>()(
   persist(
     (set) => ({
@@ -28,24 +29,14 @@ export const userStore = create<IUserStore>()(
               userInfo: null,
             },
           };
-         
         }),
       fetchUser: async () => {
         try {
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/user/get`,
-            {
-              method: "GET",
-              headers: {
-                Authorization: userStore.getState().user.token,
-              },
-            }
-          ); // replace with your API endpoint
-          const data = await response.json();
-          set((state) => ({ user: { ...state.user, userInfo: data.user } }));
-        } catch (error) {
-          console.error("Failed to fetch user", error);
-        }
+          axiosInstance.get("/user/get").then((res) => {
+            const data = res.data;
+            set((state) => ({ user: { ...state.user, userInfo: data.user } }));
+          });
+        } catch (_) {}
       },
     }),
     {

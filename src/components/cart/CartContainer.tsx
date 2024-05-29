@@ -6,6 +6,7 @@ import { IProduct } from "@/types/product";
 import { useCartStore } from "@/store/cartQount";
 import { alertStore } from "@/store/alert";
 import { useRouter } from "next/navigation";
+import axiosInstance from "@/lib/models/axiosInstance";
 export const CartContainer = () => {
   const router = useRouter();
   const { fetchCartCount } = useCartStore((state) => state);
@@ -22,35 +23,20 @@ export const CartContainer = () => {
   }
   // fetch cart items
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/getProductsInCart`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: user.token,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setCartItems(data.products);
+      axiosInstance.get("/cart/getProductsInCart").then((res) => {
+        setCartItems(res.data.products);
       });
   }, [user.token, updateCart]);
 
   // handle control quantity of the product or delete it
   const handleControlQuantity = async (productId: string, action: string) => {
     const data = { productId, action };
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/controlQuantity`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: user.token,
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((data) => {
+      axiosInstance.post("/cart/controlQuantity", data).then((res) => {
         fetchCartCount(); // update cart count
-        setAlert({ message: data.message, type: "success" });
+        setAlert({ message: res.data.message, type: "success" });
         setUpdateCart(!updateCart);
+      }).catch((error) => {
+        setAlert({ message: error.message, type: "error" });
       });
   };
 
@@ -58,40 +44,26 @@ export const CartContainer = () => {
   const handlePayment = async () => {
     if (paymentMethod === "cash") {
       setLoading(true);
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/order/createOrder`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: user.token,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setAlert({ message: data.message, type: "success" });
+        axiosInstance.post("/order/createOrder").then((res) => {
+          setAlert({ message: res.data.message, type: "success" });
           setUpdateCart(!updateCart);
           fetchCartCount(); // update cart count
           router.push("/");
+          
+        }).catch((error) => {
+          setAlert({ message: error.message, type: "error" });
         }).finally(() => setLoading(false));
     
     } else if (paymentMethod === "online") {
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/stripe/paymentLink`, {
-        cache: "no-cache",
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: user?.token,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          window.location.href = data.paymentLink;
+        axiosInstance.post("/stripe/paymentLink").then((res) => {
+          window.location.href = res.data.paymentLink;
+        }).catch((error) => {
+          setAlert({ message: error.message, type: "error" });
         });
     }
   };
   return (
     <section>
-      {/*creat div contain two div first take 8 cols and secound take 4 in md and greter screen and sm every div take full width  i use tailwind css*/}
-
       <div className="flex flex-col lg:flex-row gap-5">
         <div className="w-full lg:w-8/12 ">
           <div className="grid grid-cols-1  gap-4 w-full">
