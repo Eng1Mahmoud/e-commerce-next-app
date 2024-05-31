@@ -4,7 +4,7 @@ import ProductCard from "../general/ProductCard";
 
 import ProductsSkeleton from "../general/skeletonLoading/ProductsSkeleton";
 import { IProduct } from "@/types/product";
-import axiosInstance from "@/lib/models/axiosInstance";
+import axiosInstance from "@/lib/axiosInstance";
 const AllProducts = ({ categorie }: { categorie: string }) => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState(false);

@@ -1,5 +1,5 @@
 "use client";
-import axiosInstance from "@/lib/models/axiosInstance";
+import axiosInstance from "@/lib/axiosInstance"; 
 import { alertStore } from "@/store/alert";
 import { userStore } from "@/store/user";
 import React, { useEffect, useState } from "react";

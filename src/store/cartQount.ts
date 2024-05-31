@@ -1,13 +1,14 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { userStore } from "./user";
-import axiosInstance from "@/lib/models/axiosInstance";
+import axiosInstance from "@/lib/axiosInstance"; 
+import { getCookie } from "cookies-next";
 interface CartStore {
   cartCount: number;
   fetchCartCount: () => Promise<void>;
 }
 //get user token
-const user = userStore.getState().user;
+
 export const useCartStore = create<CartStore>()(
   persist(
     (set) => ({
@@ -27,6 +28,9 @@ export const useCartStore = create<CartStore>()(
   )
 );
 // Fetch cart count when the app loads
-useCartStore.getState().fetchCartCount();
 
+let token = getCookie("token");
+if (token) { // If the user is logged in fetch the cart count
+  useCartStore.getState().fetchCartCount();
+}
 export default useCartStore;

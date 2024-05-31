@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useFormStatus } from "react-dom";
 import UploadImages from "./UploadImages";
-import axiosInstance from "@/lib/models/axiosInstance";
+import axiosInstance from "@/lib/axiosInstance"; 
 const AddProductForm = () => {
   const [formState, setFormState] = useState({
     name: "",

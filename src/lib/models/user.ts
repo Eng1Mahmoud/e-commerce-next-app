@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema<IUser>({
   phone: { type: String, required: false },
   address: { type: String, required: false },
   role: { type: String, required: true, default: "user" },
+  verified: { type: Boolean, required:true, default: false }
 });
 
 const User: Model<IUser> =

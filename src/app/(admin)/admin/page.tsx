@@ -1,10 +1,12 @@
-import AddProductForm from "@/components/admin/AddProductForm"
+import AddProductForm from "@/components/admin/AddProductForm";
+import Users from "./users/page";
 
 const page = () => {
   return (
- <AddProductForm/>
+    <div className="container py-10">
+      <Users />
+    </div>
+  );
+};
 
-  )
-}
-
-export default page
+export default page;

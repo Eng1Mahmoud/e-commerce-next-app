@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { IUserStore } from "@/types/store";
-import axiosInstance from "@/lib/models/axiosInstance";
+import axiosInstance from "@/lib/axiosInstance"; 
 export const userStore = create<IUserStore>()(
   persist(
     (set) => ({

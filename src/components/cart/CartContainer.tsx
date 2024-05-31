@@ -6,7 +6,7 @@ import { IProduct } from "@/types/product";
 import { useCartStore } from "@/store/cartQount";
 import { alertStore } from "@/store/alert";
 import { useRouter } from "next/navigation";
-import axiosInstance from "@/lib/models/axiosInstance";
+import axiosInstance from "@/lib/axiosInstance"; 
 export const CartContainer = () => {
   const router = useRouter();
   const { fetchCartCount } = useCartStore((state) => state);

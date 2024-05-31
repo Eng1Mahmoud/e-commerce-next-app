@@ -1,5 +1,5 @@
 import ProductById from "@/components/ProductById/ProductById";
-import axiosInstance from "@/lib/models/axiosInstance";
+import axiosInstance from "@/lib/axiosInstance"; 
 import React from "react";
 
 const page = async ({

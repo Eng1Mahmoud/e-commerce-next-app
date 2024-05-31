@@ -6,8 +6,6 @@ export const GET = async (req: any) => {
   const token = req.headers.get("authorization");
   // check if token is valid and get user id
   const { userId }: any = verifyToken(token);
-
-
   try {
     await connectDb();
     const user = await User.findOne({ _id: userId });

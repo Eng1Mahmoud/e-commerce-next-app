@@ -9,7 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { alertStore } from "@/store/alert";
 import { ILogin } from "@/types/user";
-import axiosInstance from "@/lib/models/axiosInstance";
+import axiosInstance from "@/lib/axiosInstance"; 
 const LoginPage = () => {
   const { setAlert } = alertStore();
   const router = useRouter();

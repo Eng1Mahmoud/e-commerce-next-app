@@ -5,7 +5,7 @@ import { FaCamera } from "react-icons/fa";
 import { uploadImages } from "@/actions/uploadImages";
 import { userStore } from "@/store/user";
 import { alertStore } from "@/store/alert";
-import axiosInstance from "@/lib/models/axiosInstance";
+import axiosInstance from "@/lib/axiosInstance"; 
 export const UserAvatar = () => {
   const { user, fetchUser } = userStore((state) => state);
 

@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { SliderProducts } from "./SliderProducts";
-import axiosInstance from "@/lib/models/axiosInstance";
+import axiosInstance from "@/lib/axiosInstance";
 export const CategoriesSection = ({ categorie }: { categorie: string }) => {
   const [products, setProducts] = useState([]);
   useEffect(() => {

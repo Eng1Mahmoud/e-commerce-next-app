@@ -1,5 +1,5 @@
 "use client";
-import axiosInstance from "@/lib/models/axiosInstance";
+import axiosInstance from "@/lib/axiosInstance"; 
 import { alertStore } from "@/store/alert";
 import useCartStore from "@/store/cartQount";
 import { userStore } from "@/store/user";

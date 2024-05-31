@@ -74,14 +74,7 @@ const Navbar = () => {
                 التمور
               </Link>
             </li>
-            <li>
-              <Link
-                href={`/profile`}
-                className="font-bold text-[20px] font-main"
-              >
-                الملف الشخصي 
-              </Link>
-            </li>
+           
           </ul>
         </div>
         <div className="flex gap-5  items-center ">
