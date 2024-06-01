@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useFormStatus } from "react-dom";
 import UploadImages from "./UploadImages";
-import axiosInstance from "@/lib/axiosInstance"; 
+import axiosInstance from "@/lib/axiosInstance";
 const AddProductForm = () => {
   const [formState, setFormState] = useState({
     name: "",
@@ -11,7 +11,7 @@ const AddProductForm = () => {
     category: "",
     amount: 0,
     images: [""],
-    unit:""
+    unit: "",
   } as {
     name: string;
     description: string;
@@ -19,9 +19,8 @@ const AddProductForm = () => {
     category: string;
     images: string[];
     amount: number;
-    unit:string;
+    unit: string;
   });
-
 
   // button status
   const SummitButton = () => {
@@ -38,7 +37,6 @@ const AddProductForm = () => {
     );
   };
 
-
   // handle change state
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -50,18 +48,22 @@ const AddProductForm = () => {
   // handle form submit
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    axiosInstance.post("/admin/add-product",formState).then((res)=>{
-      alert(res.data.message)
-    }).catch((error)=>{
-      alert(error.message)
-    })
+    axiosInstance
+      .post("/admin/add-product", formState)
+      .then((res) => {
+        alert(res.data.message);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
   return (
-    <div className="py-11">
-      <h2 className="text-center text-[35px] font-bold  text-teal-500">
-        Upload New Product
-      </h2>
+    <div className="py-11 container">
+      <h1 className="font-bold font-main my-8 text-primary text-[35px]">
+        {" "}
+        اضافة منتج جديد
+      </h1>
       <div className="container mx-auto my-[100px] max-w-screen-lg">
         <form className="w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -131,7 +133,7 @@ const AddProductForm = () => {
             </div>
 
             <div className="w-full  flex justify-center  ">
-                  <UploadImages formState={formState} setFormState={setFormState}/>
+              <UploadImages formState={formState} setFormState={setFormState} />
             </div>
 
             <div className="flex ">

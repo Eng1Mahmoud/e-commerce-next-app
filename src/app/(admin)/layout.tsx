@@ -5,7 +5,7 @@ import { DrawerContent } from "@/components/admin/DrawerContent";
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" dir="rtl">
-      <body>
+      <body  suppressHydrationWarning={true}>
         <Alert />
         <div>
           <div className="drawer md:hidden">

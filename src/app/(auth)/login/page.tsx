@@ -46,7 +46,7 @@ const LoginPage = () => {
         router.push("/");
       })
       .catch((err) => {
-        setAlert({ message: err.message, type: "error" });
+        setAlert({ message: err.response.data.message, type: "error" });
       })
       .finally(() => {
         setLoading(false);

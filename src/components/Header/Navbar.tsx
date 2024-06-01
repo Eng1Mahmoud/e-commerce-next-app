@@ -15,13 +15,11 @@ const Navbar = () => {
   const router = useRouter();
   const { user, logout } = userStore(); // get user token
   const { cartCount } = useCartStore((state) => state); // get user cart items count
-
   // handle logout
   const handleLogout = () => {
     logout();
     router.push("/");
     deleteCookie("token");
-
   };
   return (
     <div className="navbar bg-white">
@@ -74,7 +72,6 @@ const Navbar = () => {
                 التمور
               </Link>
             </li>
-           
           </ul>
         </div>
         <div className="flex gap-5  items-center ">
@@ -118,14 +115,32 @@ const Navbar = () => {
               {/*user menu */}
 
               {/** cart qount */}
-              <div className="indicator">
-                <span className="indicator-item badge bg-primary text-white p-2">
-                  {cartCount}
-                </span>
-                <Link href="/cart" className="font-bold text-[20px] font-main">
-                  <FaShoppingCart className="text-[35px]" />
-                </Link>
-              </div>
+              {user.userInfo.role === "user" && (
+                <div className="indicator">
+                  <span className="indicator-item badge bg-primary text-white p-2">
+                    {cartCount}
+                  </span>
+                  <Link
+                    href="/cart"
+                    className="font-bold text-[20px] font-main"
+                  >
+                    <FaShoppingCart className="text-[35px]" />
+                  </Link>
+                </div>
+              )}
+
+              {user?.userInfo?.role === "admin" && (
+                <ul className="menu menu-horizontal px-1">
+                  <li>
+                    <Link
+                      href="/admin"
+                      className="font-bold text-[20px] font-main"
+                    >
+                      لوحة التحكم
+                    </Link>
+                  </li>
+                </ul>
+              )}
             </>
           ) : (
             <>

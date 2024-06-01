@@ -5,26 +5,26 @@ export const DrawerContent = () => {
       <h1 className="font-bold font-main text-center text-[25px] my-5">
         لوحة التحكم
       </h1>
-      <li>
+      <li className="mt-2">
         <Link href={"/admin"}>المستخدمين</Link>
       </li>
-      <li>
+      <li className="mt-2">
         <details open>
           <summary>المنتجات</summary>
           <ul>
-            <li>
+            <li className="mt-2">
               <Link href={"/admin"}>الخضروات</Link>
             </li>
-            <li>
+            <li className="mt-2">
               <Link href={"/admin"}>الفواكه</Link>
             </li>
           </ul>
         </details>
       </li>
-      <li>
+      <li className="mt-2">
         <Link href={"/admin"}>الفئات</Link>
       </li>
-      <li>
+      <li className="mt-2">
         <Link href={"admin/add-product"}>
           اضافة منتج
         </Link>

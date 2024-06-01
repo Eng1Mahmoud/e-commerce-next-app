@@ -12,12 +12,12 @@ export const POST = async (req: any) => {
     connectDb();
     const user = (await User.findOne({ email: email })) as any;  
     if (!user) {
-      return Response.json({ message: "User not  found" });
+      return Response.json({ message: "المستخدم غير موجود" });
     }
     const validPassword = await bcrypt.compare(password, user.password);
 
     if (!validPassword) {
-      return Response.json({ message: "Invalid password" }, { status: 400 });
+      return Response.json({ message: "كلمة المرور غير صحيحة" }, { status: 400 });
     }
     const token = createToken(user._id, user.role);
     // remove password from user object before sending to client
@@ -25,6 +25,6 @@ export const POST = async (req: any) => {
     delete returnUser.password;
     return Response.json({ token, user: returnUser }, { status: 200 });
   } catch (error) {
-    return Response.json({ message: "Error logging in",error:error }, { status: 500 });
+    return Response.json({ message: "حدث خطا ما",error:error }, { status: 500 });
   }
 };
