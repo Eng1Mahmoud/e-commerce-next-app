@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { User } from "@/lib/models/user";
+import { Users } from "@/lib/models/user";
 import { connectDb } from "@/lib/conectDb";
 export const POST = async (req: any) => {
   const data = await req.json();
@@ -8,7 +8,7 @@ export const POST = async (req: any) => {
     const { email }: any = decoded;
     await connectDb();
        if(email){ // check if token valid 
-        const user = await User.findOne({ email });
+        const user = await Users.findOne({ email });
     // check if user already exists and verified
     if (!user) {
       return Response.json({ message: "المستخدم غير موجود" }, { status: 400 });
@@ -19,7 +19,7 @@ export const POST = async (req: any) => {
           { status: 400 }
         );
       } else {
-        await User.updateOne({ email }, { verified: true });
+        await Users.updateOne({ email }, { verified: true });
         return Response.json(
           { message: "تم تفعيل الحساب بنجاح" },
           { status: 200 }

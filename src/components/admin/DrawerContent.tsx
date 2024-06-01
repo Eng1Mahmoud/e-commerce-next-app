@@ -1,7 +1,7 @@
 import Link from "next/link";
 export const DrawerContent = () => {
   return (
-    <ul className="menu bg-base-200  max-w-[300px] w-full h-[110vh]  ">
+    <ul className="menu bg-base-200  max-w-[300px] w-full   ">
       <h1 className="font-bold font-main text-center text-[25px] my-5">
         لوحة التحكم
       </h1>
@@ -13,19 +13,58 @@ export const DrawerContent = () => {
           <summary>المنتجات</summary>
           <ul>
             <li className="mt-2">
-              <Link href={"/admin"}>الخضروات</Link>
+              <Link href={"/admin/products/خضروات"}>خضروات</Link>
             </li>
             <li className="mt-2">
-              <Link href={"/admin"}>الفواكه</Link>
+              <Link href={"/admin/products/فواكه"}>فواكه</Link>
+            </li>
+            <li className="mt-2">
+              <Link href={"/admin/products/تمور"}>
+                تمور
+              </Link>
             </li>
           </ul>
         </details>
       </li>
       <li className="mt-2">
+        <details open>
+          <summary>الطلبات</summary>
+          <ul>
+            <li className="mt-2">
+              <Link href={"/admin/orders/جديده"}>
+                الطلبات الجديدة
+              </Link>
+            </li>
+            <li className="mt-2">
+              <Link href={"/admin/orders/تحت التجهيز"}>
+                تحت التجهيز
+              </Link>
+            </li>
+            <li className="mt-2">
+              <Link href={"/admin/orders/مكتمله"}>
+              مكتمله
+              </Link>
+            </li>
+            <li className="mt-2">
+              <Link href={"/admin/orders/جاري التوصيل"}>
+                جاري التوصيل
+              </Link>
+            </li>
+         <li className="mt-2">
+              <Link href={"/admin/orders/ملغيه"}>
+              ملغيه
+              </Link>
+            </li>
+          </ul>
+        </details>
+      </li>
+
+
+      <li className="mt-2">
         <Link href={"/admin"}>الفئات</Link>
       </li>
       <li className="mt-2">
-        <Link href={"admin/add-product"}>
+        <Link href={"/admin/add-product"}>
           اضافة منتج
         </Link>
       </li>

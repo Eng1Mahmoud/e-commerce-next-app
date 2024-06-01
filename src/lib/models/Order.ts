@@ -2,7 +2,8 @@ import mongoose, { Model } from "mongoose";
 const OrderSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Users", // reference to the User model
+    ref: "Users", // reference to the Users model
+
   },
   products: [
     {
@@ -18,15 +19,16 @@ const OrderSchema = new mongoose.Schema({
   ],
   status: {
     type: String,
-    enum: ["pending", "ongoing", "completed"],
-    default: "pending",
+    enum: ["جديده", "تحت التجهيز", "جاري التوصيل", "مكتمله", "ملغيه"],
+    default: "جديده",
   },
 });
-
+// Check if the model already exists before defining it
 let Order: Model<any>;
-try {
+if (mongoose.models.Order) {
   Order = mongoose.model("Order");
-} catch (error) {
+} else {
   Order = mongoose.model("Order", OrderSchema);
 }
+
 export { Order };

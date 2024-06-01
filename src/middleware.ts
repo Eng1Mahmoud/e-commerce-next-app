@@ -15,7 +15,6 @@ export function middleware(request: NextRequest) {
   const { role }: any = decodeToken(token);
   let isAdminRoute = request.nextUrl.pathname.startsWith("/admin");
   let userRole = role;
-  console.log("USER ROLE", userRole);
   if (isAdminRoute && userRole !== "admin") {
     return NextResponse.redirect(new URL("/", request.url));
   }

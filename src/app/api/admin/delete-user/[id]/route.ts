@@ -1,5 +1,5 @@
 import { verifyToken } from "../../../../../lib/auth-helper/jwt";
-import { User } from "@/lib/models/user";
+import { Users } from "@/lib/models/user";
 import { connectDb } from "@/lib/conectDb";
 import { Cart } from "@/lib/models/Cart";
 import { Order } from "@/lib/models/Order";
@@ -14,13 +14,11 @@ export const DELETE = async (req: any, { params }: { params: any }) => {
     await connectDb();
     if (role === "admin") {
       // check if user haave any order is pending or not
-      const user = await User.findById(id); // get user by id
+      const user = await Users.findById(id); // get user by id
       if (!user) {
         return Response.json({ message: "المستخدم غير موجود", user: {} });
       }
-
       const order = await Order.findOne({ userId: id, status: "pending" }); // if user have any pending order not delete it until complet it
-      console.log(order);
       if (order) {
         
         return Response.json({
@@ -30,7 +28,7 @@ export const DELETE = async (req: any, { params }: { params: any }) => {
           // delete user cart  before delete user
       await Cart.deleteOne({ user: id });
           // delete user by id
-      await User.deleteOne({ _id: id });
+      await Users.deleteOne({ _id: id });
       return Response.json({ message: "تم حذف المستخدم بنجاح" });
       }
 
@@ -42,7 +40,6 @@ export const DELETE = async (req: any, { params }: { params: any }) => {
       );
     }
   } catch (err) {
-    console.log(err);
     return Response.json({ message: err }, { status: 500 });
   }
 };

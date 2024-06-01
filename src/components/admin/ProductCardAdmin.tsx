@@ -1,13 +1,12 @@
 "use client";
-import axiosInstance from "@/lib/axiosInstance"; 
+import axiosInstance from "@/lib/axiosInstance";
 import { alertStore } from "@/store/alert";
 import useCartStore from "@/store/cartQount";
-import { userStore } from "@/store/user";
 import { IProduct } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-const ProductCard = ({ product }: { product: IProduct }) => {
+const ProductCardAdmin = ({ product }: { product: IProduct }) => {
   const { fetchCartCount } = useCartStore((state) => state);
   const { setAlert } = alertStore(); // get alert from store
   // handle add to cart
@@ -26,13 +25,14 @@ const ProductCard = ({ product }: { product: IProduct }) => {
       });
   };
   return (
-    <div className="bg-white shadow-lg rounded-lg p-4">
+    <div className="bg-white shadow-lg rounded-lg p-4 relative ">
+      <button className=" btn absolute top-1 right-1">تعديل</button>
       <Image
         src={product.images[0]}
         alt={product.name}
         width={500}
         height={500}
-        className="h-[300px] w-full"
+        className="h-[150px] w-full"
         loading="eager"
       />
       <Link
@@ -54,4 +54,4 @@ const ProductCard = ({ product }: { product: IProduct }) => {
   );
 };
 
-export default ProductCard;
+export default ProductCardAdmin;

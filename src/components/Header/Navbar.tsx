@@ -66,10 +66,10 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                href={`/products/التمور`}
+                href={`/products/تمور`}
                 className="font-bold text-[20px] font-main"
               >
-                التمور
+                تمور
               </Link>
             </li>
           </ul>

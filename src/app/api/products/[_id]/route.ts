@@ -1,10 +1,10 @@
-import { Product } from "@/lib/models/product";
+import { Products } from "@/lib/models/product";
 import { connectDb } from "@/lib/conectDb";
 export const GET = async (req:any,{ params }: { params: any }) => {
  const {_id} = params;
  try {
     connectDb();
-    const product = await Product.findById(params._id);
+    const product = await Products.findById(params._id);
     if (product) {
       return Response.json({ product });
     } else {

@@ -6,7 +6,7 @@ import { IProduct } from "@/types/product";
 import { useCartStore } from "@/store/cartQount";
 import { alertStore } from "@/store/alert";
 import { useRouter } from "next/navigation";
-import axiosInstance from "@/lib/axiosInstance"; 
+import axiosInstance from "@/lib/axiosInstance";
 export const CartContainer = () => {
   const router = useRouter();
   const { fetchCartCount } = useCartStore((state) => state);
@@ -23,41 +23,58 @@ export const CartContainer = () => {
   }
   // fetch cart items
   useEffect(() => {
-      axiosInstance.get("/cart/getProductsInCart").then((res) => {
-        setCartItems(res.data.products);
-      });
+    axiosInstance.get("/cart/getProductsInCart").then((res) => {
+      setCartItems(res.data.products);
+    });
   }, [user.token, updateCart]);
 
   // handle control quantity of the product or delete it
   const handleControlQuantity = async (productId: string, action: string) => {
     const data = { productId, action };
-      axiosInstance.post("/cart/controlQuantity", data).then((res) => {
+    axiosInstance
+      .post("/cart/controlQuantity", data)
+      .then((res) => {
         fetchCartCount(); // update cart count
         setAlert({ message: res.data.message, type: "success" });
         setUpdateCart(!updateCart);
-      }).catch((error) => {
+      })
+      .catch((error) => {
         setAlert({ message: error.message, type: "error" });
       });
   };
 
   // handle payment
   const handlePayment = async () => {
+    // chech if user save his address and phone number in profile page before payment
+    if (!user?.userInfo?.address || !user?.userInfo?.phone) {
+      setAlert({
+        message: "برجاء اضافة العنوان ورقم الهاتف في صفحة البروفايل قبل الدفغ",
+        type: "error",
+      });
+      router.push("/profile");
+      return;
+    }
     if (paymentMethod === "cash") {
       setLoading(true);
-        axiosInstance.post("/order/createOrder").then((res) => {
+      axiosInstance
+        .post("/order/createOrder")
+        .then((res) => {
           setAlert({ message: res.data.message, type: "success" });
           setUpdateCart(!updateCart);
           fetchCartCount(); // update cart count
           router.push("/");
-          
-        }).catch((error) => {
+        })
+        .catch((error) => {
           setAlert({ message: error.message, type: "error" });
-        }).finally(() => setLoading(false));
-    
+        })
+        .finally(() => setLoading(false));
     } else if (paymentMethod === "online") {
-        axiosInstance.post("/stripe/paymentLink").then((res) => {
+      axiosInstance
+        .post("/stripe/paymentLink")
+        .then((res) => {
           window.location.href = res.data.paymentLink;
-        }).catch((error) => {
+        })
+        .catch((error) => {
           setAlert({ message: error.message, type: "error" });
         });
     }

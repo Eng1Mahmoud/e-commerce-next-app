@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema<IUser>({
   verified: { type: Boolean, required:true, default: false }
 });
 
-const User: Model<IUser> =
+const Users: Model<IUser> =
   mongoose.models.Users || mongoose.model<IUser>("Users", userSchema);
 
-export { User };
+  export { Users };

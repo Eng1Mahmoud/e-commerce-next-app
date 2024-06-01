@@ -4,7 +4,8 @@ import ProductCard from "../general/ProductCard";
 import ProductsSkeleton from "../general/skeletonLoading/ProductsSkeleton";
 import { IProduct } from "@/types/product";
 import axiosInstance from "@/lib/axiosInstance";
-const AllProducts = ({ categorie }: { categorie: string }) => {
+import ProductCardAdmin from "./ProductCardAdmin";
+const Products = ({ categorie }: { categorie: string }) => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -63,7 +64,7 @@ const AllProducts = ({ categorie }: { categorie: string }) => {
               <ProductsSkeleton key={n} />
             )) // skeleton loading
           : products.map((product) => (
-              <ProductCard key={product._id} product={product} />
+              <ProductCardAdmin key={product._id} product={product} />
             ))}
       </div>
       {!endProducts ? (
@@ -85,4 +86,4 @@ const AllProducts = ({ categorie }: { categorie: string }) => {
   );
 };
 
-export default AllProducts;
+export default Products;

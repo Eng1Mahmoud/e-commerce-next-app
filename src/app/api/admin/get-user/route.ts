@@ -1,10 +1,9 @@
 import { verifyToken } from "../../../../lib/auth-helper/jwt";
-import { User } from "@/lib/models/user";
+import { Users } from "@/lib/models/user";
 import { connectDb } from "@/lib/conectDb";
 
 export const POST = async (req: any) => {
   const { id } = await req.json();
-  console.log(id);
   // get token from request
   const token = req.headers.get("authorization");
   // check if token is valid and get user role
@@ -13,7 +12,7 @@ export const POST = async (req: any) => {
     await connectDb();
     if (role === "admin") {
       // ge user by id
-      const user = await User.findById(id, { password: 0 });
+      const user = await Users.findById(id, { password: 0 });
       if (!user) {
         return Response.json({ message: "المستخدم غير موجود", user: {} });
       } else {
@@ -26,7 +25,6 @@ export const POST = async (req: any) => {
       );
     }
   } catch (err) {
-    console.log(err);
     return Response.json({ message: err }, { status: 500 });
   }
 };

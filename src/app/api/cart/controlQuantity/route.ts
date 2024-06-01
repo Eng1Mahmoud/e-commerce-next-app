@@ -1,4 +1,4 @@
-import { Product } from "@/lib/models/product";
+import { Products } from "@/lib/models/product";
 import { Cart } from "@/lib/models/Cart";
 import { connectDb } from "@/lib/conectDb";
 import { verifyToken } from "@/lib/auth-helper/jwt";

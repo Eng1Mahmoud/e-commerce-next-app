@@ -1,6 +1,6 @@
 import bcrypt  from "bcrypt"
 import { connectDb } from "@/lib/conectDb";
-import { User } from "@/lib/models/user";
+import { Users } from "@/lib/models/user";
 import { createToken } from "@/lib/auth-helper/jwt";
 
 export const POST = async (req: any) => {
@@ -10,7 +10,7 @@ export const POST = async (req: any) => {
 
   try {
     connectDb();
-    const user = (await User.findOne({ email: email })) as any;  
+    const user = (await Users.findOne({ email: email })) as any;  
     if (!user) {
       return Response.json({ message: "المستخدم غير موجود" });
     }

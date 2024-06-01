@@ -21,7 +21,6 @@ function VerifyEmailContent() {
           /*  router.push("/login"); */
         })
         .catch((error) => {
-          console.log(error.response.data.message);
           setSuccess("failed");
           setAlert({ message: error.response.data.message, type: "error" });
         });

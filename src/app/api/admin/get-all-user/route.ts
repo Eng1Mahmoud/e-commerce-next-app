@@ -1,5 +1,5 @@
 import { verifyToken } from "./../../../../lib/auth-helper/jwt";
-import { User } from "@/lib/models/user";
+import { Users } from "@/lib/models/user";
 import { connectDb } from "@/lib/conectDb";
 
 export const GET = async (req: any) => {
@@ -11,7 +11,7 @@ export const GET = async (req: any) => {
     await connectDb();
     if (role === "admin") {
       // Exclude admin and don't select password
-      const users = await User.find({ role: { $ne: 'admin' } }, { password: 0 });
+      const users = await Users.find({ role: { $ne: 'admin' } }, { password: 0 });
       if (!users || users.length === 0) {
         return Response.json({ message: "not user found", users: [] });
       } else {

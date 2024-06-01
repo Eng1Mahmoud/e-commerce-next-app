@@ -1,5 +1,5 @@
 import { connectDb } from "@/lib/conectDb";
-import { Product } from "@/lib/models/product";
+import { Products } from "@/lib/models/product";
 
 export const GET = async (req: any, { params }: { params: any }) => {
   const Categorie = params.params[0];
@@ -9,7 +9,7 @@ export const GET = async (req: any, { params }: { params: any }) => {
   try {
     connectDb();
     const startIndex = (page - 1) * limit;
-    const products = await Product.find({ category: Categorie })
+    const products = await Products.find({ category: Categorie })
       .limit(limit)
       .skip(startIndex);
       if (products.length === 0 ) {

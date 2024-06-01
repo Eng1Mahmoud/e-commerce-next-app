@@ -10,7 +10,7 @@ const createOrder = async ({ userId }: { userId: string }) => {
   await Order.create({
     userId: cart.userId,
     products: cart.products,
-    status: "pending",
+    status: "جديده",
   });
 };
 const clear = async ({ userId }: { userId: string }) => {

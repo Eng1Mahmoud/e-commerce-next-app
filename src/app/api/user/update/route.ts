@@ -1,4 +1,4 @@
-import { User } from "@/lib/models/user";
+import { Users } from "@/lib/models/user";
 import { connectDb } from "@/lib/conectDb";
 import { verifyToken } from "@/lib/auth-helper/jwt";
 export const PUT = async (req: any) => {
@@ -9,7 +9,7 @@ export const PUT = async (req: any) => {
   const data = await req.json();
 try {
     await connectDb();
-    const user = await User.findOneAndUpdate({ _id: userId }, data, { new: true });
+    const user = await Users.findOneAndUpdate({ _id: userId }, data, { new: true });
     if (!user) {
         return Response.json({ message: "User not found" }, { status: 404 });
     }

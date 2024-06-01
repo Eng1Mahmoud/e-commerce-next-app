@@ -1,11 +1,11 @@
 import { connectDb } from "@/lib/conectDb";
-import { Product } from "@/lib/models/product";
+import { Products } from "@/lib/models/product";
  export const POST = async (req:any) => {
 const data = await req.json();
 const { name, description, price, category, images,amount,unit } = data;
  try {
     connectDb();
-        const product = new Product({
+        const product = new Products({
             name,
             description,
             price,

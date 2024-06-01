@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { verifyToken } from "../../../../lib/auth-helper/jwt";
-import { User } from "@/lib/models/user";
+import { Users } from "@/lib/models/user";
 import { connectDb } from "@/lib/conectDb";
 export const POST = async (req: any) => {
   const data = await req.json();
@@ -12,7 +12,7 @@ export const POST = async (req: any) => {
     await connectDb();
     if (role === "admin") {
       // ge user by id and update password only
-      const user = await User.findOne({ _id: data.id });
+      const user = await Users.findOne({ _id: data.id });
       if (!user) {
         return Response.json({ message: "المستخدم غير موجود", user: {} });
       } else {
@@ -31,7 +31,6 @@ export const POST = async (req: any) => {
       );
     }
   } catch (err) {
-    console.log(err);
     return Response.json({ message: err }, { status: 500 });
   }
 };

@@ -13,12 +13,12 @@ const productSchema = new mongoose.Schema<IProduct>({
   unit: { type: String, required: true },
 });
 
-let Product: Model<IProduct>;
-
-try {
-  Product = mongoose.model<IProduct>("Products");
-} catch (error) {
-  Product = mongoose.model<IProduct>("Products", productSchema);
+// Check if the model already exists before defining it
+let Products: Model<IProduct>;
+if (mongoose.models.Products) {
+  Products = mongoose.model<IProduct>("Products");
+} else {
+  Products = mongoose.model<IProduct>("Products", productSchema);
 }
 
-export { Product };
+export { Products };

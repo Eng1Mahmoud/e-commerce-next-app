@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { connectDb } from "@/lib/conectDb";
 import {Cart} from "@/lib/models/Cart";
 import { verifyToken } from "@/lib/auth-helper/jwt";

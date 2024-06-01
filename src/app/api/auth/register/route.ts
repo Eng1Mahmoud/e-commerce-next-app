@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { connectDb } from "@/lib/conectDb";
-import { User } from "@/lib/models/user";
+import { Users } from "@/lib/models/user";
 import nodemailer from "nodemailer";
 export const POST = async (req: any) => {
   const data = await req.json();
@@ -32,7 +32,7 @@ export const POST = async (req: any) => {
   // check if user already exists
   try {
     connectDb();
-    const user = await User.findOne({}).where("email").equals(email);
+    const user = await Users.findOne({}).where("email").equals(email);
 
     if (user) {
       if (user.verified) {
@@ -53,7 +53,7 @@ export const POST = async (req: any) => {
       let saltRounds = Number(process.env.SALT_ROUNDS) || 10;
       const salt = await bcrypt.genSalt(saltRounds);
       const hashedPassword = await bcrypt.hash(password, salt);
-      const newUser = new User({ username, email, password: hashedPassword });
+      const newUser = new Users({ username, email, password: hashedPassword });
       await newUser.save();
       // send mail
       transporter.sendMail(mailOptions);

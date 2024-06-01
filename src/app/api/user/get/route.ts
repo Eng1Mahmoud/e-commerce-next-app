@@ -1,4 +1,4 @@
-import { User } from "@/lib/models/user";
+import { Users } from "@/lib/models/user";
 import { connectDb } from "@/lib/conectDb";
 import { verifyToken } from "@/lib/auth-helper/jwt";
 export const GET = async (req: any) => {
@@ -8,7 +8,7 @@ export const GET = async (req: any) => {
   const { userId }: any = verifyToken(token);
   try {
     await connectDb();
-    const user = await User.findOne({ _id: userId });
+    const user = await Users.findOne({ _id: userId });
     if (!user) {
       return Response.json({ message: "User not found" }, { status: 404 });
     }

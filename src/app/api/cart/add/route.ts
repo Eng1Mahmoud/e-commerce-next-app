@@ -1,4 +1,3 @@
-import { IProduct } from '@/types/product';
 import { connectDb } from "@/lib/conectDb";
 import { Cart } from "../../../../lib/models/Cart";
 import { verifyToken } from "@/lib/auth-helper/jwt";
