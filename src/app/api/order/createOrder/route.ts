@@ -9,12 +9,21 @@ export const POST = async (req: any) => {
   const { userId }: any = verifyToken(token);
   try {
     await connectDb();
-    const cart = await Cart.findOne({ userId: userId });
+    const cart = await Cart.findOne({ userId: userId }).populate("products.productId");
+    // calculate total price of the order
+    let total = 0;
+    cart.products.forEach((product:any) => {
+      total += product.productId.price * product.quantity;
+    });
+    // add charge for delivery to the total price
+     total += 50;
 
     await Order.create({
       userId: cart.userId,
       products: cart.products,
       status: "جديده",
+      total: total,
+      paymentStatus: "غير مدفوع",
     }); // create order
     await Cart.findOneAndDelete({ userId: userId }); // clear cart
     return Response.json({ message: "Order created successfully" });

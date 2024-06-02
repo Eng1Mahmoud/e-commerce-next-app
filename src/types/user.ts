@@ -8,6 +8,7 @@ interface IUser {
     address?: string;
     role: string;
     verified: boolean;
+    createdAt: Date;
 }
 
 interface ILogin {

@@ -19,7 +19,7 @@ const calculateTotalPrice = async ({ userId }: { userId: string }) => {
   for (const product of cart.products) {
     totalPrice += product.productId.price * product.quantity;
   }
-  return totalPrice;
+  return totalPrice + 50; // add delivery charge
 };
 export const POST = async (req: any) => {
   // get token from request

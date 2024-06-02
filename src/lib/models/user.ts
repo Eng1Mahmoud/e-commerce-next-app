@@ -1,3 +1,4 @@
+import { create } from 'zustand';
 import mongoose, { Model } from "mongoose";
 import { IUser } from "@/types/user";
 
@@ -10,7 +11,8 @@ const userSchema = new mongoose.Schema<IUser>({
   phone: { type: String, required: false },
   address: { type: String, required: false },
   role: { type: String, required: true, default: "user" },
-  verified: { type: Boolean, required:true, default: false }
+  verified: { type: Boolean, required:true, default: false },
+  createdAt: { type: Date, default: Date.now },
 });
 
 const Users: Model<IUser> =

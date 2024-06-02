@@ -1,3 +1,4 @@
+import { create } from "domain";
 import mongoose, { Model } from "mongoose";
 const OrderSchema = new mongoose.Schema({
   userId: {
@@ -22,6 +23,22 @@ const OrderSchema = new mongoose.Schema({
     enum: ["جديده", "تحت التجهيز", "جاري التوصيل", "مكتمله", "ملغيه"],
     default: "جديده",
   },
+  total: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  paymentStatus: {
+    type: String,
+    enum: ["مدفوع", "غير مدفوع"],
+    default: "غير مدفوع",
+  },
+
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  
 });
 // Check if the model already exists before defining it
 let Order: Model<any>;

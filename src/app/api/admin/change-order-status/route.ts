@@ -1,23 +1,19 @@
 import { connectDb } from "@/lib/conectDb";
 import { verifyToken } from "../../../../lib/auth-helper/jwt";
 import { Order } from "@/lib/models/Order";
-
 export const POST = async (req: any) => {
-  const { status } = await req.json();
+  const { id,status } = await req.json();
   const token = req.headers.get("authorization");
   const { role }: any = verifyToken(token);
 
   try {
     await connectDb();
     if (role === "admin") {
-      const orders = await Order.find({ status }).populate("userId", {
-        password: 0,
-      });
-
+      const orders = await Order.findOneAndUpdate({ _id:id }, { status: status })
       if (!orders || orders.length === 0) {
         return Response.json({ message: "لا يوجد طلبات", orders: [] });
       } else {
-        return Response.json({ message: "تم ارجاع الطلبات بنجاح", orders });
+        return Response.json({ message: "تم تغيير حالة الطلب بنجاح", orders });
       }
     } else {
       return Response.json(
