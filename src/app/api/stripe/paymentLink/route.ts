@@ -47,8 +47,8 @@ export const POST = async (req: any) => {
         },
       ],
       mode: "payment",
-      success_url: "http://localhost:3000/success-payment",
-      cancel_url: "http://localhost:3000/failed-payment",
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success-payment`,
+      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/failed-payment`,
       metadata: { userId: userId },
       client_reference_id: userId,
     });
