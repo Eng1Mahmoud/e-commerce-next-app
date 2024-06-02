@@ -100,7 +100,7 @@ const OrderDetails = ({
                   height={300}
                 />
               </div>
-              <div className="">
+              <div className="p-4">
                 <h2 className="font-bold font-main text-[20px]">
                   الاسم : {product.productId.name}
                 </h2>

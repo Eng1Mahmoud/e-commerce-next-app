@@ -10,6 +10,9 @@ interface IProduct  {
     images: string[];
     amount: number;
     unit: string;
+    createdAt?: Date;
+    isDeleted?: boolean;
+    inStock?: boolean;
   }
 
   export type { IProduct };

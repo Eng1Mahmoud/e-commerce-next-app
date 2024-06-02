@@ -9,6 +9,8 @@ const EditUser = ({
     id: string;
   };
 }) => {
+  const [loading, setLoading] = useState(false);
+  const [loadingPassword, setLoadingPassword] = useState(false);
   const { setAlert } = alertStore();
   const [user, setUser] = useState({
     username: "",
@@ -42,6 +44,7 @@ const EditUser = ({
   };
   // handle update user
   const handleSubmit = () => {
+    setLoading(true);
     axiosInstance
       .post(`/admin/edit-user`, { ...user, id: params.id })
       .then((res) => {
@@ -49,14 +52,18 @@ const EditUser = ({
       })
       .catch((err) => {
         setAlert({ message: err.response.data.message, type: "error" });
+      }).finally(() => {
+        setLoading(false);
       });
   };
   // handle change password
   const handleSavePassword = () => {
+
     if (password.password !== password.confirmPassword) {
       setAlert({ message: "كلمة المرور غير متطابقة", type: "error" });
       return;
     }
+    setLoadingPassword(true);
     axiosInstance
       .post(`/admin/change-user-password`, { ...password, id: params.id })
       .then((res) => {
@@ -64,6 +71,8 @@ const EditUser = ({
       })
       .catch((err) => {
         setAlert({ message: err.response.data.message, type: "error" });
+      }).finally(() => {
+        setLoadingPassword(false);
       });
   };
   return (
@@ -116,7 +125,7 @@ const EditUser = ({
         </div>
         <div className="col-span-2">
           <button className="btn btn-primary w-full" onClick={handleSubmit}>
-            حفظ
+             {loading ? "انتظر .... " : "حفظ"}
           </button>
         </div>
       </div>
@@ -147,7 +156,7 @@ const EditUser = ({
             className="btn btn-primary w-full"
             onClick={handleSavePassword}
           >
-            تغيير كلمة المرور
+            {loadingPassword ? "انتظر .... " : "تغيير كلمة المرور"}
           </button>
         </div>
       </div>

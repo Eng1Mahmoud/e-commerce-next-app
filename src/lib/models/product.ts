@@ -11,6 +11,9 @@ const productSchema = new mongoose.Schema<IProduct>({
   images: { type: [String], required: true },
   amount: { type: Number, required: true },
   unit: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
+  isDeleted: { type: Boolean, default: false },
+  inStock: { type: Boolean, default: true },
 });
 
 // Check if the model already exists before defining it

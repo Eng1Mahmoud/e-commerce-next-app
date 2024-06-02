@@ -9,7 +9,7 @@ export const GET = async (req: any, { params }: { params: any }) => {
   try {
     connectDb();
     const startIndex = (page - 1) * limit;
-    const products = await Products.find({ category: Categorie })
+    const products = await Products.find({ category: Categorie, isDeleted: false})
       .limit(limit)
       .skip(startIndex);
       if (products.length === 0 ) {

@@ -28,7 +28,6 @@ const UploadImages = ({
     const newImages = [...formState.images];
     newImages[index] = imageUrl;
     setFormState({ ...formState, images: newImages });
-
     setLoading((prevLoading) => {
       const newLoading = [...prevLoading];
       newLoading[index] = false;

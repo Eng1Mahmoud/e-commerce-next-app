@@ -1,32 +1,44 @@
 "use client";
-import axiosInstance from "@/lib/axiosInstance";
-import { alertStore } from "@/store/alert";
-import useCartStore from "@/store/cartQount";
 import { IProduct } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useRouter } from "next/navigation";
+import axiosInstance from "@/lib/axiosInstance";
+import { alertStore } from "@/store/alert";
 const ProductCardAdmin = ({ product }: { product: IProduct }) => {
-  const { fetchCartCount } = useCartStore((state) => state);
-  const { setAlert } = alertStore(); // get alert from store
-  // handle add to cart
-  const handleAddToCart = () => {
+  const { setAlert } = alertStore();
+  const router = useRouter();
+  // handle go to edit product page
+  const handleEdit = () => {
+    router.push(`/admin/edit-product/${product._id}`);
+  };
+  // handle delete product
+  const handleDelete = () => {
     axiosInstance
-      .post("/cart/add", {
-        productId: product._id,
-        quantity: 1,
-      })
+      .delete(`/admin/delete-product/${product._id}`)
       .then((res) => {
-        fetchCartCount();
-        setAlert({ message: res.data.message, type: "success" });
+        setAlert({ type: "success", message: res.data.message });
       })
-      .catch((error) => {
-        setAlert({ message: error.message, type: "error" });
+      .catch((err) => {
+        setAlert({ type: "error", message: err.response.data.message });
       });
   };
+
   return (
     <div className="bg-white shadow-lg rounded-lg p-4 relative ">
-      <button className=" btn absolute top-1 right-1">تعديل</button>
+      <button
+        className=" btn btn-success absolute top-1 right-1"
+        onClick={handleEdit}
+      >
+        تعديل
+      </button>
+      <button
+        className=" btn btn-error absolute top-1 left-3"
+        onClick={handleDelete}
+      >
+        حذف
+      </button>
       <Image
         src={product.images[0]}
         alt={product.name}
@@ -44,12 +56,6 @@ const ProductCardAdmin = ({ product }: { product: IProduct }) => {
       <p className="text-[#ffad33] font-bold text-[20px] mt-1">
         {product.price} جنيه
       </p>
-      <button
-        className="font-bolder text-[18px] outline outline-[#ffad33] outline-[1px] text-[#ffad33] w-full text-center p-2 rounded-lg mt-3 hover:bg-[#ffad33] hover:text-white"
-        onClick={handleAddToCart}
-      >
-        اضافة للسلة
-      </button>
     </div>
   );
 };

@@ -3,7 +3,9 @@ import React, { useState } from "react";
 import { useFormStatus } from "react-dom";
 import UploadImages from "./UploadImages";
 import axiosInstance from "@/lib/axiosInstance";
+import { alertStore } from "@/store/alert";
 const AddProductForm = () => {
+  const { setAlert } = alertStore();
   const [formState, setFormState] = useState({
     name: "",
     description: "",
@@ -51,10 +53,10 @@ const AddProductForm = () => {
     axiosInstance
       .post("/admin/add-product", formState)
       .then((res) => {
-        alert(res.data.message);
+        setAlert({ type: "success", message: res.data.message });
       })
       .catch((error) => {
-        alert(error.message);
+        setAlert({ type: "error", message: error.response.data.message });
       });
   };
 
