@@ -1,7 +1,7 @@
 import Link from "next/link";
 export const DrawerContent = () => {
   return (
-    <ul className="menu bg-base-200  max-w-[300px] w-full   ">
+    <ul className="menu bg-base-200  max-w-[300px] w-full overflow-auto h-screen">
       <h1 className="font-bold font-main text-center text-[25px] my-5">
         لوحة التحكم
       </h1>

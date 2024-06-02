@@ -14,12 +14,12 @@ const layout = ({ children }: { children: React.ReactNode }) => {
             <div className="drawer-content">
               <label
                 htmlFor="my-drawer-4"
-                className="drawer-button btn btn-primary"
+                className="drawer-button btn btn-primary m-5"
               >
-                Open drawer
+                القائمة
               </label>
             </div>
-            <div className="drawer-side">
+            <div className="drawer-side z-[200]">
               <label
                 htmlFor="my-drawer-4"
                 aria-label="close sidebar"

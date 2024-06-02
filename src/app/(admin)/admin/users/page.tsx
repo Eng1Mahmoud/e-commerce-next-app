@@ -34,8 +34,9 @@ const Users = () => {
     router.push(`/admin/edit-user/${id}`);
   };
   return (
+    <div >
+        <h1 className="text-2xl font-bold font-main my-8">المستخدمين</h1>
     <div className="overflow-x-auto">
-      <h1 className="text-2xl font-bold font-main my-8">المستخدمين</h1>
       <table className="table">
         {/* head */}
         <thead>
@@ -93,6 +94,7 @@ const Users = () => {
           })}
         </tbody>
       </table>
+    </div>
     </div>
   );
 };

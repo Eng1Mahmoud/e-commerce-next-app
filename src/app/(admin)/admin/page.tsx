@@ -1,4 +1,3 @@
-import AddProductForm from "@/components/admin/AddProductForm";
 import Users from "./users/page";
 
 const page = () => {
