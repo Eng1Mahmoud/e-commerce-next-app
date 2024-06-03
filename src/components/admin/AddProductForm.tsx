@@ -14,6 +14,7 @@ const AddProductForm = () => {
     amount: 0,
     images: [""],
     unit: "",
+    inStock: true,
   } as {
     name: string;
     description: string;
@@ -22,6 +23,7 @@ const AddProductForm = () => {
     images: string[];
     amount: number;
     unit: string;
+    inStock: boolean;
   });
 
   // button status

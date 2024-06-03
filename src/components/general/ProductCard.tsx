@@ -2,7 +2,6 @@
 import axiosInstance from "@/lib/axiosInstance";
 import { alertStore } from "@/store/alert";
 import useCartStore from "@/store/cartQount";
-import { userStore } from "@/store/user";
 import { IProduct } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
