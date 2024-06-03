@@ -1,16 +1,28 @@
-import { create } from "domain";
 import mongoose, { Model } from "mongoose";
 const OrderSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Users", // reference to the Users model
-
   },
   products: [
     {
-      productId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Products", // reference to the Product model
+      productData: {
+        name: {
+          type: String,
+          required: true,
+        },
+        description: {
+          type: String,
+          required: true,
+        },
+        price: {
+          type: Number,
+          required: true,
+        },
+        image: {
+          type: String,
+          required: true,
+        },
       },
       quantity: {
         type: Number,
@@ -38,7 +50,6 @@ const OrderSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  
 });
 // Check if the model already exists before defining it
 let Order: Model<any>;

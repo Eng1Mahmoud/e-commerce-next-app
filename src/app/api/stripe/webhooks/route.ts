@@ -21,7 +21,19 @@ const calculateTotalPrice = async () => {
   // create order
   await Order.create({
     userId: cart.userId,
-    products: cart.products,
+    products: [
+      ...cart.products.map((product: any) => ({
+        productData: {
+          name: product.productId.name,
+          description: product.productId.description,
+          price: product.productId.price,
+          image: product.productId.images[0],
+        },
+        quantity: product.quantity,
+      }),
+      ),
+    
+    ],
     status: "جديده",
     total: await calculateTotalPrice(),
     paymentStatus: "مدفوع",

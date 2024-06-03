@@ -11,11 +11,11 @@ export const POST = async (req: any) => {
     await connectDb();
 
     if (role === "admin") {
-      const order = await Order.findOne({ _id:id} )
+      const order = await Order.findOne({ _id: id }).populate("userId", {
+        password: 0,
+      });
 
-        .populate('products.productId').populate('userId', { password: 0 });
-
-      if (!order ) {
+      if (!order) {
         return Response.json({ message: "الطلب غير موجود", order: {} });
       } else {
         return Response.json({ message: "تم ارجاع الطلب بنجاح", order });

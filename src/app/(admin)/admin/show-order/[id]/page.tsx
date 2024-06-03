@@ -11,7 +11,7 @@ const OrderDetails = ({
   };
 }) => {
   const [order, setOrder] = useState<any>(null);
-  const {setAlert} = alertStore();
+  const { setAlert } = alertStore();
   console.log(order);
   // get order details by id
   useEffect(() => {
@@ -35,13 +35,13 @@ const OrderDetails = ({
 
     return `${date} - ${time}`; // Concatenate date and time with a hyphen
   };
-  // change order status 
+  // change order status
   const handleChangeStatus = (e: any) => {
     const status = e.target.value;
     axiosInstance
       .post("/admin/change-order-status", { id: params.id, status })
       .then((res) => {
-        setAlert({ type: "success", message: res.data.message })
+        setAlert({ type: "success", message: res.data.message });
       });
   };
   return (
@@ -89,11 +89,14 @@ const OrderDetails = ({
           المنتجات
         </h2>
         <div className="grid  grid-cols-1 md:grid-cols-3 gap-3">
-          {order?.products.map((product: any) => (
-            <div key={product?._id} className="shadow-md">
+          {order?.products.map((product: any, index: number) => (
+            <div
+              key={`${product?.productData?.name}-${index}`}
+              className="shadow-md"
+            >
               <div className="flex justify-center items-center">
                 <Image
-                  src={product.productId.images[0]}
+                  src={product?.productData?.image}
                   alt="product"
                   className="w-full h-[200px] object-cover"
                   width={300}
@@ -102,14 +105,14 @@ const OrderDetails = ({
               </div>
               <div className="p-4">
                 <h2 className="font-bold font-main text-[20px]">
-                  الاسم : {product.productId.name}
+                  الاسم : {product?.productData?.name}
                 </h2>
                 <h2 className="font-bold font-main text-[20px]">
-                  السعر : {product.productId.price}
+                  السعر : {product?.productData?.price}
                 </h2>
 
                 <h2 className="font-bold font-main text-[20px]">
-                  الكمية : {product.quantity}
+                  الكمية : {product?.quantity}
                 </h2>
               </div>
             </div>
@@ -131,10 +134,12 @@ const OrderDetails = ({
         <h2 className="text-xl font-bold font-main text-primary my-4">
           تغيير حالة الطلب
         </h2>
-        <select className="select select-bordered w-full max-w-xs" onChange={handleChangeStatus}>
-          <option disabled selected>
-            اختر حالة الطلب
-          </option>
+        <select
+          className="select select-bordered w-full max-w-xs"
+          value={order?.status}
+          onChange={handleChangeStatus}
+        >
+          <option disabled>اختر حالة الطلب</option>
           <option value="جديده">جديده </option>
           <option value="تحت التجهيز"> تحت التجهيز</option>
           <option value="جاري التوصيل">جاري التوصيل</option>
