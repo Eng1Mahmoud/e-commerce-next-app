@@ -41,7 +41,7 @@ export const POST = async (req: any, { params }: { params: any }) => {
       );
     }
   } catch (err) {
-    console.log(err);
+
     return Response.json({ message: "something went wrong" });
   }
 };

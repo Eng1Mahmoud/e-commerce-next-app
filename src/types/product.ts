@@ -12,7 +12,7 @@ interface IProduct  {
     unit: string;
     createdAt?: Date;
     isDeleted?: boolean;
-    inStock?: boolean;
+    inStock: boolean;
   }
 
   export type { IProduct };

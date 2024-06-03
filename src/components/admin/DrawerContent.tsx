@@ -6,6 +6,9 @@ export const DrawerContent = () => {
         لوحة التحكم
       </h1>
       <li className="mt-2">
+        <Link href={"/"}>الرجوع الي الموقع</Link>
+      </li>
+      <li className="mt-2">
         <Link href={"/admin"}>المستخدمين</Link>
       </li>
       <li className="mt-2">

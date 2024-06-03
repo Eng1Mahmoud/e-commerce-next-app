@@ -1,5 +1,5 @@
 "use client";
-import axiosInstance from "@/lib/axiosInstance"; 
+import axiosInstance from "@/lib/axiosInstance";
 import { alertStore } from "@/store/alert";
 import useCartStore from "@/store/cartQount";
 import { userStore } from "@/store/user";
@@ -26,7 +26,14 @@ const ProductCard = ({ product }: { product: IProduct }) => {
       });
   };
   return (
-    <div className="bg-white shadow-lg rounded-lg p-4">
+    <div className="bg-white shadow-lg rounded-lg p-4 relative">
+      <div className="flex justify-between items-center absolute top-1 right-1">
+        {!product?.inStock ? (
+          <span className="bg-red-500 text-white p-1 rounded-lg">
+            غير متوفر
+          </span>
+        ) : null}
+      </div>
       <Image
         src={product.images[0]}
         alt={product.name}

@@ -8,13 +8,18 @@ import { useRouter } from "next/navigation";
 import { alertStore } from "@/store/alert";
 const Users = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(true);
   const [users, setUsers] = useState<IUser[]>([]);
   const { setAlert } = alertStore();
   // get all user
   useEffect(() => {
-    axiosInstance.get("/admin/get-all-user").then((res) => {
-      setUsers(res.data.users);
-    });
+    setLoading(true);
+    axiosInstance
+      .get("/admin/get-all-user")
+      .then((res) => {
+        setUsers(res.data.users);
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   // delete user
@@ -34,67 +39,78 @@ const Users = () => {
     router.push(`/admin/edit-user/${id}`);
   };
   return (
-    <div >
-        <h1 className="text-2xl font-bold font-main my-8">المستخدمين</h1>
-    <div className="overflow-x-auto">
-      <table className="table">
-        {/* head */}
-        <thead>
-          <tr>
-            <th>الاسم</th>
-            <th className="text-center">الايميل</th>
-            <th className="text-center">رقم الهاتف</th>
-            <th className="text-center">العنوان</th>
-            <th className="text-center font-bold"> تعديل</th>
-            <th className="text-center font-bold">حذف</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => {
-            return (
-              <tr key={user?._id}>
-                <td className="text-center">
-                  <div className="flex items-center gap-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle w-12 h-12">
-                        <Image
-                          width={200}
-                          height={200}
-                          src={user?.avatar || userAvatarImage}
-                          alt="Avatar Tailwind CSS Component"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="font-bold">{user?.username}</div>
-                    </div>
-                  </div>
-                </td>
-                <td className="text-center">{user?.email}</td>
-                <td className="text-center">{user?.phone || "??"}</td>
-                <td className="text-center">{user?.address || "??"}</td>
-                <td className="text-center">
-                  <button
-                    className="btn "
-                    onClick={() => user?._id && handleEdit(user._id)}
-                  >
-                    تعديل
-                  </button>
-                </td>
-                <td className="text-center">
-                  <button
-                    className="btn "
-                    onClick={() => user?._id && handleDelete(user?._id)}
-                  >
-                    حذف
-                  </button>
-                </td>
+    <div>
+      <h1 className="text-2xl font-bold font-main my-8">المستخدمين</h1>
+      <div className="overflow-x-auto">
+        {loading && (
+          <div className="text-center font-main font-bold text-[25px]">
+            جاري تحميل المستخدمين...
+          </div>
+        )}
+        {users.length === 0 && !loading && (
+          <div className="text-center font-main font-bold text-error text-[25px]">
+            لا يوجد مستخدمين
+          </div>
+        )}
+        {users.length > 0 && !loading && (
+          <table className="table">
+            <thead>
+              <tr>
+                <th>الاسم</th>
+                <th className="text-center">الايميل</th>
+                <th className="text-center">رقم الهاتف</th>
+                <th className="text-center">العنوان</th>
+                <th className="text-center font-bold"> تعديل</th>
+                <th className="text-center font-bold">حذف</th>
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+            </thead>
+            <tbody>
+              {users.map((user) => {
+                return (
+                  <tr key={user?._id}>
+                    <td className="text-center">
+                      <div className="flex items-center gap-3">
+                        <div className="avatar">
+                          <div className="mask mask-squircle w-12 h-12">
+                            <Image
+                              width={200}
+                              height={200}
+                              src={user?.avatar || userAvatarImage}
+                              alt="Avatar Tailwind CSS Component"
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="font-bold">{user?.username}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="text-center">{user?.email}</td>
+                    <td className="text-center">{user?.phone || "??"}</td>
+                    <td className="text-center">{user?.address || "??"}</td>
+                    <td className="text-center">
+                      <button
+                        className="btn "
+                        onClick={() => user?._id && handleEdit(user._id)}
+                      >
+                        تعديل
+                      </button>
+                    </td>
+                    <td className="text-center">
+                      <button
+                        className="btn "
+                        onClick={() => user?._id && handleDelete(user?._id)}
+                      >
+                        حذف
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
+      </div>
     </div>
   );
 };

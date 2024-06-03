@@ -22,7 +22,6 @@ export const POST = async (req: any) => {
       );
     }
   } catch (err) {
-    console.log(err);
     return Response.json({ message: "حدث خطأ ما" }, { status: 500 });
   }
 };

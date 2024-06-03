@@ -12,7 +12,6 @@ const OrderDetails = ({
 }) => {
   const [order, setOrder] = useState<any>(null);
   const { setAlert } = alertStore();
-  console.log(order);
   // get order details by id
   useEffect(() => {
     axiosInstance
