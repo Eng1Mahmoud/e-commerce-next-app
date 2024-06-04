@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Drawer } from "@/components/Header/Drawer";
 import logo from "../../../public/al-baraka-logo.png";
 import Image from "next/image";
@@ -12,8 +12,11 @@ import { CgProfile } from "react-icons/cg";
 import { IoIosLogOut } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { deleteCookie } from "cookies-next";
+import axiosInstance from "@/lib/axiosInstance";
+import { ICategorise } from "@/types/categorise";
 
 const Navbar = () => {
+  const [categories, setCategories] = useState<ICategorise[]>([]);
   const router = useRouter();
   const { user, logout } = userStore(); // get user token
   const { cartCount } = useCartStore((state) => state); // get user cart items count
@@ -24,6 +27,12 @@ const Navbar = () => {
     router.push("/");
     deleteCookie("token");
   };
+  // get categories from the server
+  useEffect(() => {
+    axiosInstance.get("/admin/get-categorise").then((res) => {
+      setCategories(res.data.categorises);
+    });
+  }, []);
 
   return (
     <div className="navbar bg-white">
@@ -47,42 +56,20 @@ const Navbar = () => {
         <div className="hidden lg:flex lg:items-center lg:justify-between lg:flex-1 mr-3">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <Link href="/" className="font-bold text-[20px] font-main">
+              <Link href="/" className="font-bold text-[20px] font-main ">
                 الرئيسية
               </Link>
             </li>
-            <li>
-              <Link
-                href="/products/خضروات"
-                className="font-bold text-[20px] font-main"
-              >
-                خضروات
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/products/فواكه"
-                className="font-bold text-[20px] font-main"
-              >
-                فواكه
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/products/ورقيات"
-                className="font-bold text-[20px] font-main"
-              >
-                ورقيات
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/products/تمور"
-                className="font-bold text-[20px] font-main"
-              >
-                تمور
-              </Link>
-            </li>
+            {categories.map((category, i) => (
+              <li key={category?._id}>
+                <Link
+                  href={`/category/${category.name}`}
+                  className="font-bold text-[20px] font-main "
+                >
+                  {category.name}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
         {user?.userInfo?.role === "user" && (

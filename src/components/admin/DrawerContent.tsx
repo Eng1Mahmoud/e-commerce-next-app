@@ -22,9 +22,7 @@ export const DrawerContent = () => {
               <Link href={"/admin/products/فواكه"}>فواكه</Link>
             </li>
             <li className="mt-2">
-              <Link href={"/admin/products/تمور"}>
-                تمور
-              </Link>
+              <Link href={"/admin/products/تمور"}>تمور</Link>
             </li>
           </ul>
         </details>
@@ -34,37 +32,36 @@ export const DrawerContent = () => {
           <summary>الطلبات</summary>
           <ul>
             <li className="mt-2">
-              <Link href={"/admin/orders/جديده"}>
-                الطلبات الجديدة
-              </Link>
+              <Link href={"/admin/orders/جديده"}>الطلبات الجديدة</Link>
             </li>
             <li className="mt-2">
-              <Link href={"/admin/orders/تحت التجهيز"}>
-                تحت التجهيز
-              </Link>
+              <Link href={"/admin/orders/تحت التجهيز"}>تحت التجهيز</Link>
             </li>
             <li className="mt-2">
-              <Link href={"/admin/orders/مكتمله"}>
-              مكتمله
-              </Link>
+              <Link href={"/admin/orders/مكتمله"}>مكتمله</Link>
             </li>
             <li className="mt-2">
-              <Link href={"/admin/orders/جاري التوصيل"}>
-                جاري التوصيل
-              </Link>
+              <Link href={"/admin/orders/جاري التوصيل"}>جاري التوصيل</Link>
             </li>
-         <li className="mt-2">
-              <Link href={"/admin/orders/ملغيه"}>
-              ملغيه
-              </Link>
+            <li className="mt-2">
+              <Link href={"/admin/orders/ملغيه"}>ملغيه</Link>
             </li>
           </ul>
         </details>
       </li>
 
-
       <li className="mt-2">
-        <Link href={"/admin"}>الفئات</Link>
+        <details open>
+          <summary>الفئات</summary>
+          <ul>
+            <li className="mt-2">
+              <Link href={"/admin/add-categories"}> اضافة فئة جديده</Link>
+            </li>
+            <li className="mt-2">
+              <Link href={"/admin/categories"}>عرض الفئات</Link>
+            </li>
+          </ul>
+        </details>
       </li>
       <li className="mt-2">
         <Link href={"/admin/add-product"}>

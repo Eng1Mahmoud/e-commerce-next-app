@@ -1,12 +1,15 @@
 "use client";
 import { userStore } from '@/store/user';
 import Link from 'next/link';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { CiMenuFries } from "react-icons/ci";
 import { deleteCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
+import axiosInstance from '@/lib/axiosInstance';
+import { ICategorise } from "@/types/categorise";
 
 export const Drawer = () => {
+    const [categories, setCategories] = useState<ICategorise[]>([]);
     const { user, logout } = userStore(); // get user token
     const router = useRouter();
     // handle logout
@@ -15,6 +18,13 @@ export const Drawer = () => {
         router.push("/");
         deleteCookie("token");
     };
+      // get categories from the server
+  useEffect(() => {
+    axiosInstance.get("/admin/get-categorise").then((res) => {
+      setCategories(res.data.categorises);
+    });
+  }, []);
+
     return (
         <div className="drawer lg:hidden w-[40px]">
             <input id="my-drawer" type="checkbox" className="drawer-toggle" />
@@ -31,38 +41,19 @@ export const Drawer = () => {
                             الرئيسية
                         </Link>
                     </li>
-                    <li className='my-2'>
-                        <Link
-                            href="/products/خضروات"
-                            className="font-bold text-[20px] font-main"
-                        >
-                            خضروات
-                        </Link>
-                    </li>
-                    <li className='my-2'>
-                        <Link
-                            href="/products/فواكه"
-                            className="font-bold text-[20px] font-main"
-                        >
-                            فواكه
-                        </Link>
-                    </li>
-                    <li className='my-2'>
-                        <Link
-                            href="/products/ورقيات"
-                            className="font-bold text-[20px] font-main"
-                        >
-                            ورقيات
-                        </Link>
-                    </li>
-                    <li className='my-2'>
-                        <Link
-                            href="/products/تمور"
-                            className="font-bold text-[20px] font-main"
-                        >
-                            تمور
-                        </Link>
-                    </li>
+
+                    {
+                        categories.map((category) => (
+                            <li key={category?._id} className='my-2'>
+                                <Link
+                                    href={`/category/${category.name}`}
+                                    className="font-bold text-[20px] font-main"
+                                >
+                                    {category.name}
+                                </Link>
+                            </li>
+                        ))
+                    }
                     <div className="divider h-[.5px bg-slate-200]"></div>
 
                     {

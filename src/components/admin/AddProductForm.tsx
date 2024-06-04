@@ -1,10 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
 import UploadImages from "./UploadImages";
 import axiosInstance from "@/lib/axiosInstance";
 import { alertStore } from "@/store/alert";
+import { ICategorise } from "@/types/categorise";
 const AddProductForm = () => {
+  const [categories, setCategories] = useState<ICategorise[]>([]);
   const { setAlert } = alertStore();
   const [formState, setFormState] = useState({
     name: "",
@@ -61,7 +63,13 @@ const AddProductForm = () => {
         setAlert({ type: "error", message: error.response.data.message });
       });
   };
-
+    // get categories from the server
+    useEffect(() => {
+      axiosInstance.get("/admin/get-categorise").then((res) => {
+        setCategories(res.data.categorises);
+      })
+    }, []);
+  
   return (
     <div className="py-11 container">
       <h1 className="font-bold font-main my-8 text-primary text-[35px]">
@@ -106,14 +114,12 @@ const AddProductForm = () => {
                   name="category"
                   onChange={(e) => handleChange(e)}
                 >
-                  <option disabled selected>
+                  <option disabled >
                     الاقسام
                   </option>
-                  <option>فواكه</option>
-                  <option>خضروات</option>
-                  <option>تمور</option>
-                  <option>ورقيات</option>
-                  <option>فواكه مجففة</option>
+                  {categories.map((category) => (
+                    <option key={category._id}>{category.name}</option>
+                  ))}
                 </select>
               </label>
               <label className="form-control w-full ">
@@ -122,7 +128,7 @@ const AddProductForm = () => {
                   name="unit"
                   onChange={(e) => handleChange(e)}
                 >
-                  <option disabled selected>
+                  <option disabled >
                     الوحدة
                   </option>
                   <option>كيلو</option>
