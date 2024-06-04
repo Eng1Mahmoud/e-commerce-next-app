@@ -5,6 +5,7 @@ import { use, useEffect } from "react";
 import { userStore } from "@/store/user";
 import { Alert } from "@/components/general/Alert";
 import { deleteCookie } from "cookies-next";
+import {Footer} from "@/components/footer/Footer";
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -34,7 +35,7 @@ export default function RootLayout({
         <Alert/>
         <Navbar />
         {children}
-     
+     <Footer/>
       </body>
     </html>
   );

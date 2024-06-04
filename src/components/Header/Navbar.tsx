@@ -27,16 +27,20 @@ const Navbar = () => {
 
   return (
     <div className="navbar bg-white">
-      <div className="container mx-auto flex items-center ">
+      <div className="container mx-auto flex items-center justify-between ">
         <Drawer />
-        <div className="flex flex-1 items-center lg:flex-none mr-5 lg:mr-0">
+        <div
+          className={`flex ${
+            user?.token ? "flex-1" : "flex-none"
+          } items-center lg:flex-none mr-5 lg:mr-0`}
+        >
           <Link href="/" className="flex items-center justify-start">
             <Image
               src={logo}
               alt="logo"
               className="w-[120px] h-[100px] scale-x-125 scale-y-[2]"
-              width={120}
-              height={100}
+              width={500}
+              height={500}
             />
           </Link>
         </div>
