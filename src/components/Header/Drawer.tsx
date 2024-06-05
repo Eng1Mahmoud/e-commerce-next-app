@@ -46,7 +46,7 @@ export const Drawer = () => {
                         categories.map((category) => (
                             <li key={category?._id} className='my-2'>
                                 <Link
-                                    href={`/category/${category.name}`}
+                                    href={`/products/${category.name}`}
                                     className="font-bold text-[20px] font-main"
                                 >
                                     {category.name}
