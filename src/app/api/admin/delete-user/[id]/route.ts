@@ -8,7 +8,7 @@ export const DELETE = async (req: any, { params }: { params: any }) => {
   const id = params.id;
   const { role }: any = verifyToken(req);
   if (role !== "admin") {
-    return Response.json({ message: " انت غير مسئول في النظام", status: 403 });
+    return Response.json({ message: " انت غير مسئول في النظام" },{status: 403});
   }
   try {
     await connectDb();

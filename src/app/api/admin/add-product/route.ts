@@ -4,7 +4,7 @@ import { Products } from "@/lib/models/product";
 export const POST = async (req: any) => {
   const { role }: any = verifyToken(req);
   if (role !== "admin") {
-    return Response.json({ message: " انت غير مسئول في النظام", status: 403 });
+    return Response.json({ message: " انت غير مسئول في النظام" },{status: 403});
   }
   const data = await req.json();
   const { name, description, price, category, images, amount, unit } = data;

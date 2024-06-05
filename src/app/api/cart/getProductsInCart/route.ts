@@ -5,7 +5,7 @@ import { verifyToken } from "@/lib/auth-helper/jwt";
 export const GET = async (req: any) => {
     const { userId }: any = verifyToken(req);
   if (!userId) {
-    return Response.json({ message: "يجب تسجيل الدخول اولا", status: 403 });
+    return Response.json({ message: "يجب تسجيل الدخول اولا" },{status: 403});
   }
     try {
         // Connect to the database

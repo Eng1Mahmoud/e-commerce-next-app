@@ -7,7 +7,7 @@ export const POST = async (req: any) => {
   // get token from request
   const { userId }: any = verifyToken(req);
   if (!userId) {
-    return Response.json({ message: "يجب تسجيل الدخول اولا", status: 403 });
+    return Response.json({ message: "يجب تسجيل الدخول اولا" },{status: 403});
   }
   const data = await req.json();
   const { productId, action } = data;

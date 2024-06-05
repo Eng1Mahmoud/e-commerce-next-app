@@ -82,11 +82,11 @@ export const SliderProducts = ({ products, categorie }: props) => {
             spaceBetween: 5,
           },
         }}
-        className="  w-full"
+        className="w-full "
       >
         {products.length > 0 ? (
           products.map((product: IProduct) => (
-            <SwiperSlide key={product._id}>
+            <SwiperSlide key={product._id} className="mb-10">
               <ProductCard product={product} />
             </SwiperSlide>
           ))

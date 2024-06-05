@@ -5,7 +5,7 @@ import { verifyToken } from "@/lib/auth-helper/jwt";
 export const POST = async (req: any, { params }: { params: any }) => {
   const { role }: any = verifyToken(req);
   if (role !== "admin") {
-    return Response.json({ message: " انت غير مسئول في النظام", status: 403 });
+    return Response.json({ message: " انت غير مسئول في النظام" },{status: 403});
   }
   const { id } = params;
   const data = await req.json();

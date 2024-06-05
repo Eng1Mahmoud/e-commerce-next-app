@@ -4,7 +4,7 @@ import { Order } from "@/lib/models/Order";
 export const POST = async (req: any) => {
   const { role }: any = verifyToken(req);
   if (role !== "admin") {
-    return Response.json({ message: " انت غير مسئول في النظام", status: 403 });
+    return Response.json({ message: " انت غير مسئول في النظام" },{status: 403});
   }
   const { id, status } = await req.json();
   try {
