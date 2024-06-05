@@ -40,8 +40,6 @@ const AddProductForm = () => {
 
   // handle form submit
   const handleSubmit = async () => {
-    console.log(formState);
-    
     axiosInstance
       .post("/admin/add-product", formState)
       .then((res) => {
@@ -50,7 +48,6 @@ const AddProductForm = () => {
       .catch((error) => {
         setAlert({ type: "error", message: error.response.data.message });
       });
-   
   };
 
   // get categories from the server

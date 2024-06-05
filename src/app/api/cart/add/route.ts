@@ -3,7 +3,6 @@ import { Cart } from "../../../../lib/models/Cart";
 import { verifyToken } from "@/lib/auth-helper/jwt";
 export const POST = async (req: any) => {
   const { userId }: any = verifyToken(req);
-  console.log(userId);
   if (!userId) {
     return Response.json({ message: "يجب تسجيل الدخول اولا" },{status: 403});
   }
@@ -36,7 +35,6 @@ export const POST = async (req: any) => {
       return Response.json({ message: "تم اضافة المنتج الي عربى التسوق" });
     }
   } catch (error: any) {
-   console.log(error)
     return Response.json(
       { message: "لم يتم اضافة المنتج", error },
       { status: 500 }

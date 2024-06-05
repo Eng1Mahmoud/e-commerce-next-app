@@ -26,7 +26,7 @@ export const ProductSlider = ({ images }: { images: string[] }) => {
   };
 
   return (
-    <div className="">
+    <div className="mb-5">
       <Swiper
         modules={[Autoplay]}
         autoplay={{ delay: 2500, disableOnInteraction: true }}

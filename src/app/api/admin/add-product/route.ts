@@ -23,7 +23,6 @@ export const POST = async (req: any) => {
     await product.save();
     return Response.json({ message: "تم اضافة المنتج بنجاح" });
   } catch (err) {
-    console.log(err);
     return Response.json({ message: "Product not added" });
   }
 };

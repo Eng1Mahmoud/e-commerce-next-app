@@ -11,7 +11,6 @@ export const GET = async (req: any, { params }: { params: any }) => {
     }
     return Response.json({ categorise: categorise });
   } catch (err) {
-    console.log(err);
     return Response.json({ message: "حدث خطأ ما" }, { status: 500 });
   }
 };
