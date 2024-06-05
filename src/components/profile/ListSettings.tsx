@@ -6,6 +6,7 @@ import { CgProfile } from "react-icons/cg";
 import { IoIosLogOut } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { deleteCookie } from "cookies-next";
+import { FaMotorcycle } from "react-icons/fa6";
 
 export const ListSettings = () => {
   const { logout } = userStore(); // get user token
@@ -23,6 +24,12 @@ export const ListSettings = () => {
           <Link href="/profile">
             <CgProfile className="" size={30} />
             الملف الشخصي
+          </Link>
+        </li>
+        <li>
+          <Link href="/profile/current-orders">
+            <FaMotorcycle className="" size={30} />
+            الطلبات الحالية
           </Link>
         </li>
         <li>

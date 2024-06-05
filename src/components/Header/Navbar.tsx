@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { deleteCookie } from "cookies-next";
 import axiosInstance from "@/lib/axiosInstance";
 import { ICategorise } from "@/types/categorise";
+import { FaMotorcycle } from "react-icons/fa6";
 
 const Navbar = () => {
   const [categories, setCategories] = useState<ICategorise[]>([]);
@@ -40,7 +41,9 @@ const Navbar = () => {
         <Drawer />
         <div
           className={`flex ${
-            user?.token ? "flex-1" : "flex-none"
+            user?.token && user?.userInfo?.role === "user"
+              ? "flex-1"
+              : "flex-none"
           } items-center lg:flex-none mr-5 lg:mr-0`}
         >
           <Link href="/" className="flex items-center justify-start">
@@ -93,6 +96,12 @@ const Navbar = () => {
                   <Link href="/profile">
                     <CgProfile className="h-5 w-5" />
                     الملف الشخصي
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/profile/current-orders">
+                    <FaMotorcycle className="" size={30} />
+                    الطلبات الحالية
                   </Link>
                 </li>
                 <li>

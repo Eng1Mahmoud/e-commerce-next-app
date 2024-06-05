@@ -60,13 +60,12 @@ export const DrawerContent = () => {
             <li className="mt-2">
               <Link href={"/admin/categories"}>عرض الفئات</Link>
             </li>
+            
           </ul>
         </details>
       </li>
       <li className="mt-2">
-        <Link href={"/admin/add-product"}>
-          اضافة منتج
-        </Link>
+        <Link href={"/admin/add-product"}>اضافة منتج</Link>
       </li>
     </ul>
   );

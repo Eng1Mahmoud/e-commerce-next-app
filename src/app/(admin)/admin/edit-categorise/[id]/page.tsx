@@ -2,18 +2,22 @@
 import { uploadImages } from "@/actions/uploadImages";
 import axiosInstance from "@/lib/axiosInstance";
 import { alertStore } from "@/store/alert";
-import axios from "axios";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const AddCategories = () => {
+const EditCategories = ({
+  params,
+}: {
+  params: {
+    id: string;
+  };
+}) => {
   const { setAlert } = alertStore();
   const [categorie, setCategorie] = useState({
     name: "",
     image: "",
   });
   const [loading, setLoading] = useState(false);
-  const [loadingSubmit, setLoadingSubmit] = useState(false);
   // handle input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCategorie({ ...categorie, [e.target.name]: e.target.value });
@@ -32,37 +36,42 @@ const AddCategories = () => {
     }
     setLoading(false);
   };
+  // get current category
+  useEffect(() => {
+    axiosInstance
+      .get(`/admin/get-categorise-byId/${params?.id}`)
+      .then((res) => {
+        setCategorie({
+          name: res.data.categorise.name,
+          image: res.data.categorise.image,
+        });
+      });
+  }, [params?.id]);
 
-  // handle submit form
-  const handleSubmit = () => {
+  // update category
+  const updateCategory = () => {
     // check if image is empty or name
     if (!categorie.name || !categorie.image) {
       setAlert({ message: "الرجاء ادخال الاسم والصورة", type: "error" });
       return;
     }
-    setLoadingSubmit(true);
+    setLoading(true);
     axiosInstance
-      .post("/admin/addCategorise", categorie)
+      .put(`/admin/edit-categorise/${params?.id}`, categorie)
       .then((res) => {
         setAlert({ message: res.data.message, type: "success" });
-        setCategorie({
-          name: "",
-          image: "",
-        });
       })
       .catch((err) => {
         setAlert({ message: err.response.data.message, type: "error" });
-      })
-      .finally(() => {
-        setLoadingSubmit(false);
+      }).finally(() => {
+        setLoading(false);
       });
   };
   return (
     <div className="container py-10">
       <h1 className="text-primary font-main font-bold text-[25px]">
-        اضافة فئة جديده
+        تعديل فئة
       </h1>
-      {/* creat input name by using tailwind css and image updoad and button save and when user select image show image replace input upload  */}
       <div className="flex flex-col gap-5 mt-5">
         <input
           name="name"
@@ -93,7 +102,7 @@ const AddCategories = () => {
           >
             <div className="flex  justify-center items-center h-full">
               <Image
-                src={categorie.image}
+                src={categorie.image || ""}
                 width={500}
                 height={500}
                 alt="upload"
@@ -108,13 +117,13 @@ const AddCategories = () => {
         </div>
         <button
           className="bg-primary text-white p-2 rounded-md text-center"
-          onClick={handleSubmit}
+          onClick={updateCategory}
         >
-          {loadingSubmit ? "جاري التحميل" : "حفظ"}
+          {loading ? "جاري التحميل" : "حفظ"}
         </button>
       </div>
     </div>
   );
 };
 
-export default AddCategories;
+export default EditCategories;

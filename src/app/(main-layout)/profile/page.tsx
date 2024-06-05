@@ -1,73 +1,101 @@
 "use client";
-import Link from "next/link";
-import React, { useState, useRef, useEffect } from "react";
-import { UserAvatar } from "@/components/profile/UserAvatar";
-import { ListSettings } from "../../../components/profile/ListSettings";
-import { UserInfo } from "@/components/profile/UserInfo";
-
-const Profile = () => {
-  const profileDev = useRef<HTMLDivElement | null>(null);
-
+import axiosInstance from "@/lib/axiosInstance";
+import { alertStore } from "@/store/alert";
+import { userStore } from "@/store/user";
+import React, { useEffect, useState } from "react";
+const UserInfo = () => {
+  const { user, fetchUser } = userStore((state) => state);
+  const { setAlert } = alertStore();
+  const [userInfo, setUserInfo] = useState<any>({
+    username: "",
+    email: "",
+    phone: "",
+    address: "",
+  });
   useEffect(() => {
-    const handleScroll = () => {
-      if (profileDev.current) {
-        let top = -125; // default top value
-        let newTop = window.scrollY + top; // new top value
-        profileDev.current.style.top = `${newTop}px`; // set new top value
-        top = newTop; // update top value
-        if (top > 0) {
-          // if top value is greater than 0 set it to 0
-          profileDev.current.style.top = `0px`;
-          return;
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
+    setUserInfo({
+      username: user?.userInfo?.username,
+      email: user?.userInfo?.email,
+      phone: user?.userInfo?.phone,
+      address: user?.userInfo?.address,
+    });
+  }, [user]);
+  // handle input change
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+  };
+  // handle update user info
+  const handleUpdate = () => {
+    axiosInstance
+      .put("/user/update", userInfo)
+      .then((res) => {
+        setAlert({ message: res.data.message, type: "success" });
+        fetchUser(); // FETCH NEW USER DATA
+      })
+      .catch((error) => {
+        setAlert({ message: error.message, type: "error" });
+      });
+  };
   return (
-    <section className="w-full overflow-x-hidden">
-      <div className="bg-primary w-full h-[200px]">
-        <div className="text-sm breadcrumbs my-6">
-          <ul className="container mx-auto pt-10">
-            <li>
-              <Link href="/" className="text-[20px] font-main" style={{color:"white",
-                 textDecoration:"none"
-              }}>
-                الرئيسية
-              </Link>
-            </li>
-            <li>
-              <Link href="/profile" className="text-[20px] font-bold text-gray-200 font-main" style={{textDecoration:"none"}}>
-                الملف الشخصي
-              </Link>
-            </li>
-          </ul>
+    <div className="bg-white shadow-xl rounded-lg py-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 px-5">
+        <div className="flex flex-col gap-5">
+          <label className="text-[#374151] text-[17px]">الاسم</label>
+          <input
+            placeholder="الاسم هنا"
+            className="input input-bordered w-full "
+            type="text"
+            name="username"
+            value={userInfo?.username || ""}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex flex-col gap-5">
+          <label className=" text-[17px] text-[#374151]">
+            البريد الالكتروني
+          </label>
+          <input
+            placeholder=" البريد الالكتروني هنا"
+            className="input input-bordered w-full "
+            type="text"
+            name="email"
+            value={userInfo?.email || ""}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex flex-col gap-5">
+          <label className=" text-[17px] text-[#374151]">رقم الهاتف</label>
+          <input
+            placeholder="رقم الهاتف هنا"
+            className="input input-bordered w-full"
+            type="text"
+            name="phone"
+            value={userInfo?.phone || ""}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex flex-col gap-5">
+          <label className=" text-[17px] text-[#374151]">العنوان</label>
+          <input
+            placeholder=" العنوان هنا"
+            className="input input-bordered w-full "
+            type="text"
+            name="address"
+            value={userInfo?.address || ""}
+            onChange={handleChange}
+          />
         </div>
       </div>
-      <div className="container mx-auto">
-        <div className="flex flex-col sm:flex-row gap-5 pt-11">
-          <div
-            className="sm:w-[33%]  relative top-0 sm:top-[-125px]  transition-all duration-300 ease-in-out"
-            ref={profileDev}
-          >
-            <div className="bg-white shadow-xl rounded-lg py-10">
-              <UserAvatar />
-              <ListSettings />
-            </div>
-          </div>
-          <div className="sm:w-[66%] ">
-            <UserInfo/>
-
-          </div>
-        </div>
+      <div className="px-3">
+        <button
+          className="btn btn-primary text-white rounded-lg px-5 py-2 mt-5 w-full text-center"
+          onClick={handleUpdate}
+        >
+          حفظ
+        </button>
       </div>
-    </section>
+    </div>
   );
 };
 
-export default Profile;
+export default UserInfo;
