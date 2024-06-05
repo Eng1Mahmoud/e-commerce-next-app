@@ -3,9 +3,10 @@ import { connectDb } from "@/lib/conectDb";
 import { verifyToken } from "@/lib/auth-helper/jwt";
 
 export const GET  = async (req:any) => {
-    const token = req.headers.get("authorization");
-     // check if token is valid and get user id
-    const { userId }: any = verifyToken(token);
+    const { userId }: any = verifyToken(req);
+    if (!userId) {
+      return Response.json({ message: "يجب تسجيل الدخول اولا", status: 403 });
+    }
     try {
         connectDb();
         const cart = await Cart.findOne({ userId: userId });

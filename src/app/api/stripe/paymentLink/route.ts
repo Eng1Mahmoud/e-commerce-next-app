@@ -22,10 +22,11 @@ const calculateTotalPrice = async ({ userId }: { userId: string }) => {
   return totalPrice + 50; // add delivery charge
 };
 export const POST = async (req: any) => {
-  // get token from request
-  const token = req.headers.get("authorization");
-  // check if token is valid and get user id
-  const { userId }: any = verifyToken(token);
+  const { userId }: any = verifyToken(req);
+  if (!userId) {
+    return Response.json({ message: "يجب تسجيل الدخول اولا", status: 403 });
+  }
+  
   const totalPrice = await calculateTotalPrice({ userId });
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
     apiVersion: "2024-04-10",
@@ -37,7 +38,7 @@ export const POST = async (req: any) => {
       line_items: [
         {
           price_data: {
-            currency: "usd",
+            currency: "egp",
             product_data: {
               name: "عربة التسوق",
             },

@@ -20,8 +20,8 @@ const ProductCard = ({ product }: { product: IProduct }) => {
         fetchCartCount();
         setAlert({ message: res.data.message, type: "success" });
       })
-      .catch((error) => {
-        setAlert({ message: error.message, type: "error" });
+      .catch((error: any) => {
+        setAlert({ message: error.response.data.message, type: "error" });
       });
   };
   return (
@@ -51,8 +51,11 @@ const ProductCard = ({ product }: { product: IProduct }) => {
         {product.price} جنيه
       </p>
       <button
-        className="font-bolder text-[18px] outline outline-[#ffad33] outline-[1px] text-[#ffad33] w-full text-center p-2 rounded-lg mt-3 hover:bg-[#ffad33] hover:text-white"
+        className={`btn btn-${
+          product?.inStock ? "primary" : "warning"
+        } font-bolder text-[18px] w-full text-center p-2 mt-3 hover:text-white`}
         onClick={handleAddToCart}
+        disabled={!product?.inStock}
       >
         اضافة للسلة
       </button>

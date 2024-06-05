@@ -6,38 +6,29 @@ import { Order } from "@/lib/models/Order";
 
 export const DELETE = async (req: any, { params }: { params: any }) => {
   const id = params.id;
-  // get token from request
-  const token = req.headers.get("authorization");
-  // check if token is valid and get user role
-  const { role }: any = verifyToken(token);
+  const { role }: any = verifyToken(req);
+  if (role !== "admin") {
+    return Response.json({ message: " انت غير مسئول في النظام", status: 403 });
+  }
   try {
     await connectDb();
-    if (role === "admin") {
-      // check if user haave any order is pending or not
-      const user = await Users.findById(id); // get user by id
-      if (!user) {
-        return Response.json({ message: "المستخدم غير موجود", user: {} });
-      }
-      const order = await Order.findOne({ userId: id, status: "pending" }); // if user have any pending order not delete it until complet it
-      if (order) {
-        
-        return Response.json({
-          message: "لا يمكن حذف المستخدم لديه طلب قيد التنفيذ",
-        });
-      }else{
-          // delete user cart  before delete user
+
+    // check if user haave any order is pending or not
+    const user = await Users.findById(id); // get user by id
+    if (!user) {
+      return Response.json({ message: "المستخدم غير موجود", user: {} });
+    }
+    const order = await Order.findOne({ userId: id, status: "pending" }); // if user have any pending order not delete it until complet it
+    if (order) {
+      return Response.json({
+        message: "لا يمكن حذف المستخدم لديه طلب قيد التنفيذ",
+      });
+    } else {
+      // delete user cart  before delete user
       await Cart.deleteOne({ user: id });
-          // delete user by id
+      // delete user by id
       await Users.deleteOne({ _id: id });
       return Response.json({ message: "تم حذف المستخدم بنجاح" });
-      }
-
-    
-    } else {
-      return Response.json(
-        { message: "هذه العملية غير مسموحة لك" },
-        { status: 403 }
-      );
     }
   } catch (err) {
     return Response.json({ message: err }, { status: 500 });

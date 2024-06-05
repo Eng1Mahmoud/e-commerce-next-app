@@ -4,27 +4,20 @@ import { Order } from "@/lib/models/Order";
 
 export const POST = async (req: any) => {
   const { id } = await req.json();
-  const token = req.headers.get("authorization");
-  const { role }: any = verifyToken(token);
-
+  const { role }: any = verifyToken(req);
+  if (role !== "admin") {
+    return Response.json({ message: " انت غير مسئول في النظام", status: 403 });
+  }
   try {
     await connectDb();
+    const order = await Order.findOne({ _id: id }).populate("userId", {
+      password: 0,
+    });
 
-    if (role === "admin") {
-      const order = await Order.findOne({ _id: id }).populate("userId", {
-        password: 0,
-      });
-
-      if (!order) {
-        return Response.json({ message: "الطلب غير موجود", order: {} });
-      } else {
-        return Response.json({ message: "تم ارجاع الطلب بنجاح", order });
-      }
+    if (!order) {
+      return Response.json({ message: "الطلب غير موجود", order: {} });
     } else {
-      return Response.json(
-        { message: "هذه العملية غير مسموحة لك" },
-        { status: 403 }
-      );
+      return Response.json({ message: "تم ارجاع الطلب بنجاح", order });
     }
   } catch (err) {
     return Response.json({ message: "حدث خطأ ما" }, { status: 500 });

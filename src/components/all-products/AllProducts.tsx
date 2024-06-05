@@ -77,7 +77,7 @@ const AllProducts = ({ categorie }: { categorie: string }) => {
           </button>
         </div>
       ) : (
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-4 h-[50vh]">
           <p className="text-lg text-red-500">لا يوجد المزيد من المنتجات</p>
         </div>
       )}

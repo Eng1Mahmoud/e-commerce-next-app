@@ -5,11 +5,12 @@ import { verifyToken } from "@/lib/auth-helper/jwt";
 
 export const POST = async (req: any) => {
   // get token from request
-  const token = req.headers.get("authorization");
-  // check if token is valid and get user id
-  const { userId }: any = verifyToken(token);
+  const { userId }: any = verifyToken(req);
+  if (!userId) {
+    return Response.json({ message: "يجب تسجيل الدخول اولا", status: 403 });
+  }
   const data = await req.json();
-  const { productId, action,count } = data;
+  const { productId, action } = data;
   try {
     connectDb();
     const cart = await Cart.findOne({ userId: userId });
@@ -20,7 +21,7 @@ export const POST = async (req: any) => {
         if (product.productId.toString() === productId) {
           product.quantity += 1;
           await cart.save();
-          return Response.json({ message: "Product quantity increased" });
+          return Response.json({ message: "تم تحديث الكمية بنجاح" });
         }
       }
     } else if (action === "decrease") {
@@ -29,10 +30,10 @@ export const POST = async (req: any) => {
           if (product.quantity > 1) {
             product.quantity -= 1;
             await cart.save();
-            return Response.json({ message: "Product quantity decreased" });
+            return Response.json({ message: "تم تحديث الكمية بنجاح" });
           } else {
             return Response.json({
-              message: "Product quantity can't be less than 0",
+              message: "لا يمكن تقليل الكمية اقل من 1",
             });
           }
         }
@@ -42,14 +43,14 @@ export const POST = async (req: any) => {
         if (cart.products[i].productId.toString() === productId) {
           cart.products.splice(i, 1);
           await cart.save();
-          return Response.json({ message: "Product removed from cart" });
+          return Response.json({ message: "تم حذف المنتج بنجاح" });
         }
       }
     }
-    return Response.json({ message: "Cart updated" });
-  } catch (error) {
+    return Response.json({ message: "تم تحديث سلة التسوق" });
+  } catch (error: any) {
     return Response.json(
-      { message: "Error adding product to cart", error },
+      { message: "لم يتم اضافة المنتج", error },
       { status: 500 }
     );
   }

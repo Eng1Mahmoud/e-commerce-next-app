@@ -3,7 +3,6 @@ import type { NextRequest } from "next/server";
 import { decodeToken } from "./lib/auth-helper/jwt";
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
-  let rol = "admin";
   // Get the token from the request headers
   const token = request.cookies.get("token")?.value;
 

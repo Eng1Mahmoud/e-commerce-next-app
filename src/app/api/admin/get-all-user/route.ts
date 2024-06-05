@@ -3,25 +3,19 @@ import { Users } from "@/lib/models/user";
 import { connectDb } from "@/lib/conectDb";
 
 export const GET = async (req: any) => {
-  // get token from request
-  const token = req.headers.get("authorization");
-  // check if token is valid and get user role
-  const { role }: any = verifyToken(token);
+  const { role }: any = verifyToken(req);
+  if (role !== "admin") {
+    return Response.json({ message: " انت غير مسئول في النظام", status: 403 });
+  }
   try {
     await connectDb();
-    if (role === "admin") {
-      // Exclude admin and don't select password
-      const users = await Users.find({ role: { $ne: 'admin' } }, { password: 0 });
-      if (!users || users.length === 0) {
-        return Response.json({ message: "not user found", users: [] });
-      } else {
-        return Response.json({ message: "success return users", users });
-      }
+
+    // Exclude admin and don't select password
+    const users = await Users.find({ role: { $ne: "admin" } }, { password: 0 });
+    if (!users || users.length === 0) {
+      return Response.json({ message: "not user found", users: [] });
     } else {
-      return Response.json(
-        { message: "you are not an admin, login with an admin account" },
-        { status: 403 }
-      );
+      return Response.json({ message: "success return users", users });
     }
   } catch (err) {
     return Response.json({ message: err }, { status: 500 });
