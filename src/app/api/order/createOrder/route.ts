@@ -27,6 +27,7 @@ export const POST = async (req: any) => {
             description: product.productId.description,
             price: product.productId.price,
             image: product.productId.images[0],
+            unit: product.productId.unit,
           },
           quantity: product.quantity,
         })),

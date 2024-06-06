@@ -99,9 +99,9 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/profile/current-orders">
+                  <Link href="/profile/all-orders">
                     <FaMotorcycle className="" size={30} />
-                    الطلبات الحالية
+                    طلباتي
                   </Link>
                 </li>
                 <li>

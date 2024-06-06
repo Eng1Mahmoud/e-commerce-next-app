@@ -2,6 +2,7 @@
 import axiosInstance from "@/lib/axiosInstance";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { formatDate } from "@/lib/ConvertDateFormating";
 const Orders = ({
   params,
 }: {
@@ -27,20 +28,7 @@ const Orders = ({
   const handleShowDetails = (id: string) => {
     router.push(`/admin/show-order/${id}`);
   };
-  // Convert and format the createdAt date
-  const formatDate = (dateString: string) => {
-    const dateOptions = { year: "numeric", month: "long", day: "numeric" };
-    const timeOptions = {
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-      hour12: false,
-    };
-    const date = new Date(dateString).toLocaleDateString("ar-EG");
-    const time = new Date(dateString).toLocaleTimeString("ar-EG");
 
-    return `${date} - ${time}`; // Concatenate date and time with a hyphen
-  };
   return (
     <div className="container py-5">
       <h1 className="my-8 font-main font-bold text-primary text-[35px]">

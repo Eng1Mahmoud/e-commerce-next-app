@@ -48,7 +48,7 @@ const ProductCard = ({ product }: { product: IProduct }) => {
         {product.name}
       </Link>
       <p className="text-[#ffad33] font-bold text-[20px] mt-1">
-        {product.price} جنيه
+        {product.price} جنيه / {product.unit}
       </p>
       <button
         className={`btn btn-${
