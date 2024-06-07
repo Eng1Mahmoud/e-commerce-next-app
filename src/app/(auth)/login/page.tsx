@@ -29,6 +29,13 @@ const LoginPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle login logic here
+
+    // Basic validation
+    if (!loginData.email || !loginData.password) {
+      setAlert({ message: "الرجاء ادخال البريد الإلكتروني وكلمة المرور", type: "error" });
+      return;
+    }
+
     setLoading(true);
     axiosInstance
       .post("/auth/login", loginData)

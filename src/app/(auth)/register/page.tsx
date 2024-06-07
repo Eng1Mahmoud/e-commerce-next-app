@@ -7,6 +7,7 @@ import { IRegister } from "@/types/user";
 import { alertStore } from "@/store/alert";
 import { useRouter } from "next/navigation";
 import axiosInstance from "@/lib/axiosInstance";
+
 const RegisterPage = () => {
   const router = useRouter();
   const { setAlert } = alertStore();
@@ -23,14 +24,40 @@ const RegisterPage = () => {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   // handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
+    setErrors({ ...errors, [name]: "" }); // Clear errors when user types
   };
+
+  // validation function
+  const validate = () => {
+    const newErrors: { [key: string]: string } = {};
+    if (!userData.username || userData.username.length < 3) {
+      newErrors.username = "الاسم يجب ان يكون اكثر من 3 احرف.";
+    }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!userData.email || !emailPattern.test(userData.email)) {
+      newErrors.email = "البريد الالكتروني غير صحيح.";
+    }
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (!userData.password || !passwordPattern.test(userData.password)) {
+      newErrors.password =
+        "كلمة المرور يجب ان تحتوي علي حروف كبيرة وصغيرة وارقام.";
+    }
+    return newErrors;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
     setLoading(true);
     axiosInstance
       .post("/auth/register", userData)
@@ -49,12 +76,18 @@ const RegisterPage = () => {
   // resend email verification link by call sign up api again
   const resendEmail = () => {
     axiosInstance
-    .post("/auth/register", userData).then((res) => {
-      setAlert({ message:"تم ارسال الرسالة مجددا", type: "success" });
-    }).catch((error) => {
-       setAlert({message:" عذرا حدث خطا اثناء ارسال الرسالة ",type:"error"})
-    });
+      .post("/auth/register", userData)
+      .then((res) => {
+        setAlert({ message: "تم ارسال الرسالة مجددا", type: "success" });
+      })
+      .catch((error) => {
+        setAlert({
+          message: " عذرا حدث خطا اثناء ارسال الرسالة ",
+          type: "error",
+        });
+      });
   };
+
   return (
     <>
       {successSignup.status && (
@@ -67,7 +100,13 @@ const RegisterPage = () => {
           </p>
           <p className="text-[20px] font-main">
             اذا لم تجد الرسالة يمكنك اعادة ارسالها من
-            <button onClick={resendEmail} className="text-[#ffad33] font-bold mr-2"> هنا</button>
+            <button
+              onClick={resendEmail}
+              className="text-[#ffad33] font-bold mr-2"
+            >
+              {" "}
+              هنا
+            </button>
           </p>
         </div>
       )}
@@ -77,7 +116,7 @@ const RegisterPage = () => {
             <div className="container flex items-center">
               <form
                 onSubmit={handleSubmit}
-                className="w-full  border-[1px] border-gray-400] px-[15px] pb-[30px] shadow-lg"
+                className="w-full border-[1px] border-gray-400 px-[15px] pb-[30px] shadow-lg"
               >
                 <h3 className="my-10 text-[#ffad33] font-bold text-[30px]">
                   {" "}
@@ -92,6 +131,9 @@ const RegisterPage = () => {
                     placeholder="ادخل اسم المستخدم هنا"
                     className="input input-bordered input-primary w-full"
                   />
+                  {errors.username && (
+                    <span className="text-red-500">{errors.username}</span>
+                  )}
                   <input
                     type="email"
                     name="email"
@@ -100,6 +142,9 @@ const RegisterPage = () => {
                     placeholder="ادخل البريد الالكتروني هنا"
                     className="input input-bordered input-primary w-full"
                   />
+                  {errors.email && (
+                    <span className="text-red-500">{errors.email}</span>
+                  )}
                   <input
                     type="password"
                     name="password"
@@ -108,8 +153,10 @@ const RegisterPage = () => {
                     placeholder="ادخل كلمة المرور هنا"
                     className="input input-bordered input-primary w-full"
                   />
-
-                  <div className=" mt-4">
+                  {errors.password && (
+                    <span className="text-red-500">{errors.password}</span>
+                  )}
+                  <div className="mt-4">
                     <div className="flex text-[16px] md:text-[18px]">
                       <span className="mx-2"> لدي حساب؟ </span>
                       <Link href="/login" className="text-[#ffad33] font-bold">
