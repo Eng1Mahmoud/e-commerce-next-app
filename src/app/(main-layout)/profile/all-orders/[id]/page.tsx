@@ -18,7 +18,6 @@ const OrderById = ({
       .post("/order/get-order-by-id", { OrderId: params.id })
       .then((res) => {
         setOrder(res.data.order);
-        console.log(res.data.order);
       });
   }, [params.id]);
 

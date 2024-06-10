@@ -12,7 +12,6 @@ const CurrentOrders = () => {
       .get("/order/get-orders-user")
       .then((res) => {
         setOrders(res.data.orders);
-        console.log(res.data.orders);
       })
       .finally(() => {
         setLoading(false);

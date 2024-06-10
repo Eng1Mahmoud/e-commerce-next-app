@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import ".././globals.css";
 import Navbar from "@/components/Header/Navbar";
@@ -8,6 +9,7 @@ import { deleteCookie } from "cookies-next";
 import { Footer } from "@/components/footer/Footer";
 import axiosInstance from "@/lib/axiosInstance";
 import { useRouter } from "next/navigation";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -15,34 +17,50 @@ export default function RootLayout({
 }>) {
   const router = useRouter();
   const { logout, user } = userStore();
+
   useEffect(() => {
-    // logout user if expired token get exp from userStore and compare it with current time
-    if (user.exp && user.exp < Date.now() / 1000) {
-      logout();
-      deleteCookie("token"); // delete token from cookies
-    } else {
-      // set timeout to logout user after token expired
-      const timeout = user.exp - Date.now() / 1000;
-      setTimeout(() => {
-        logout();
-        deleteCookie("token"); // delete token from cookies
-      }, timeout * 1000);
-    }
-  }, [logout, user.exp]);
-  // create intersection for axios instance to check response status
-  axiosInstance.interceptors.response.use(
-    (response) => {
-      return response;
-    },
-    (error) => {
-      if (error.response.status === 403) {
-        logout();
-        deleteCookie("token");
-        /*   router.push("/login"); */
+    const checkUserToken = () => {
+      if (user?.userInfo) {
+        if (user.exp < Date.now() / 1000) {
+          logout();
+          deleteCookie("token"); // delete token from cookies
+          router.push("/login");
+        } else {
+          // set timeout to logout user after token expired
+          const timeout = user.exp - Date.now() / 1000;
+          const timeoutId = setTimeout(() => {
+            logout();
+            deleteCookie("token"); // delete token from cookies
+            router.push("/login");
+          }, timeout * 1000);
+
+          // Cleanup timeout on component unmount or when user logs out
+          return () => clearTimeout(timeoutId);
+        }
       }
-      return Promise.reject(error);
-    }
-  );
+    };
+
+    // Execute once on component mount
+    checkUserToken();
+
+    // Intercept axios responses
+    const interceptor = axiosInstance.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response.status === 403) {
+          logout();
+          deleteCookie("token");
+          router.push("/login");
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    // Cleanup interceptor and timeout on component unmount or when user logs out
+    return () => {
+      axiosInstance.interceptors.response.eject(interceptor);
+    };
+  }, [user, logout]);
 
   return (
     <html lang="en" dir="rtl">

@@ -4,7 +4,7 @@ import { verifyToken } from "@/lib/auth-helper/jwt";
 export const POST = async (req: any) => {
   const { userId }: any = verifyToken(req);
   if (!userId) {
-    return Response.json({ message: "يجب تسجيل الدخول اولا" },{status: 403});
+    return Response.json({ message: "يجب تسجيل الدخول اولا" }, { status: 403 });
   }
   const data = await req.json();
   const { productId, quantity } = data;
@@ -17,7 +17,7 @@ export const POST = async (req: any) => {
         products: [{ productId: productId, quantity: quantity }],
       });
       await newCart.save();
-      return Response.json({ message: "Product added to cart" });
+      return Response.json({ message: "تم اضافة المنتج الي عربى التسوق" });
     } else {
       // Check if product already exists in the cart
       const productExists = cart.products.some(
