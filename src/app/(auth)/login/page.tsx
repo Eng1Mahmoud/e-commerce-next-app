@@ -95,15 +95,6 @@ const LoginPage = () => {
                   انشاء حساب جديد
                 </Link>
               </div>
-              <div className="mt-5">
-                <span className="mx-2 ">نسيت كلمة المرور؟ </span>
-                <Link
-                  href="/auth/reset-password "
-                  className="text-[#ffad33] font-bold"
-                >
-                  اضغط هنا
-                </Link>
-              </div>
             </div>
             <button
               className="btn w-full md:w-[50%] self-center"

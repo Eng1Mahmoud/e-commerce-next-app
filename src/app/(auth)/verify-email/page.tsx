@@ -18,7 +18,7 @@ function VerifyEmailContent() {
         .then((res) => {
           setSuccess("verifyed");
           setAlert({ message: res.data.message, type: "success" });
-          /*  router.push("/login"); */
+          router.push("/login");
         })
         .catch((error) => {
           setSuccess("failed");
@@ -29,10 +29,6 @@ function VerifyEmailContent() {
 
   return (
     <div>
-      <h1 className="font-bold font-main text-[25px]">
-        {success === "verifyed" && "تم تفعيل الحساب بنجاح"}
-        {success === "failed" && "لم يتم تفعيل الحساب ربما انتهت صلاحية الرابط"}
-      </h1>
       {success === "failed" && (
         <button
           className="btn btn-primary mt-2"
@@ -40,20 +36,6 @@ function VerifyEmailContent() {
         >
           انشاء حساب
         </button>
-      )}
-      {success === "verifyed" && (
-        <button
-          className="btn btn-primary mt-2"
-          onClick={() => router.push("/login")}
-        >
-          {" "}
-          تسجيل الدخول
-        </button>
-      )}
-      {!success && (
-        <p className="font-bold font-main text-primary text-[25px]">
-          الرجاء الانتظار بضع ثواني يتم الان التحقق من حالة الحساب
-        </p>
       )}
     </div>
   );
