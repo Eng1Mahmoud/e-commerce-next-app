@@ -78,7 +78,7 @@ We follow conventional commits specification:
 
 ## 🐛 Bug Reports
 
-If you discover any bugs, please create an issue [here](https://github.com/Eng1Mahmoud/watch-store/issues) including:
+If you discover any bugs, please create an issue [here](https://github.com/Eng1Mahmoud/e-commerce-next-app) including:
 
 1. Bug description
 2. Steps to reproduce
