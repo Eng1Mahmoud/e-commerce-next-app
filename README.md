@@ -54,3 +54,39 @@ Follow these steps to set up and run the application locally:
    ```bash
    git clone https://github.com/Eng1Mahmoud/e-commerce-next-app.git
    cd e-commerce-next-app
+## 🤝 Contributing
+
+We welcome contributions! Please follow these steps:
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📜 Commit Guidelines
+
+We follow conventional commits specification:
+
+- `feat:` New features
+- `fix:` Bug fixes
+- `docs:` Documentation changes
+- `style:` Code style changes
+- `refactor:` Code refactoring
+- `test:` Test updates
+- `chore:` Build process or auxiliary tool changes
+
+## 🐛 Bug Reports
+
+If you discover any bugs, please create an issue [here](https://github.com/Eng1Mahmoud/watch-store/issues) including:
+
+1. Bug description
+2. Steps to reproduce
+3. Expected behavior
+4. Actual behavior
+5. Screenshots (if applicable)
+
+## 👨‍💻 Author
+
+**Mahmoud Mohamed**
+- GitHub: [@Eng1Mahmoud](https://github.com/Eng1Mahmoud)
