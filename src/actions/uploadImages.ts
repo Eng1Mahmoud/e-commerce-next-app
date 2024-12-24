@@ -12,7 +12,6 @@ export const uploadImages = async (state:any, data:FormData) => {
    const file = data.get('file') as File;
    const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
-   console.log("buffer", buffer);
     const results:any = await new Promise ((resolve, reject) => {
             cloudinary.uploader.upload_stream({tags: ['e-commerce'],folder:"e-commerce" }, function (error, result){
                 if ( error ) {
